@@ -1,0 +1,15 @@
+<ngx-extended-pdf-viewer
+  *ngIf="pdf"
+  [src]="pdf"
+  [showOpenFileButton]="false"
+  [showRotateButton]="false"
+  [printResolution]="300"
+  backgroundColor="var(--surface-800)"
+  filenameForDownload="SerialQR_Rechnungen.pdf"
+  zoom="100"
+  language="de-CH"
+  height="100%"
+></ngx-extended-pdf-viewer>
+<div *ngIf="!pdf" class="logo-container">
+  <img src="/assets/icons/logo.svg" />
+</div>

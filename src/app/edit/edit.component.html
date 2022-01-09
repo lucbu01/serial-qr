@@ -1,0 +1,34 @@
+<p-splitter
+  [style]="{ height: '100%', width: '100%' }"
+  [panelSizes]="[60, 40]"
+  [minSizes]="[40, 30]"
+>
+  <ng-template pTemplate>
+    <div class="options">
+      <p-editor
+        #quill
+        [(ngModel)]="editor"
+        [formats]="['bold', 'italic', 'underline', 'strike', 'link']"
+      ></p-editor>
+    </div>
+  </ng-template>
+  <ng-template pTemplate>
+    <ngx-extended-pdf-viewer
+      *ngIf="pdf"
+      [src]="pdf"
+      [showOpenFileButton]="false"
+      [showRotateButton]="false"
+      [showToolbar]="false"
+      [printResolution]="300"
+      backgroundColor="var(--surface-800)"
+      filenameForDownload="SerialQR_Rechnungen.pdf"
+      zoom="75"
+      language="de-CH"
+      height="100%"
+    ></ngx-extended-pdf-viewer>
+    <div *ngIf="!pdf" class="logo-container">
+      <img src="/assets/icons/logo.svg" />
+    </div>
+  </ng-template>
+</p-splitter>
+<p-button class="pdfButton" (onClick)="generate()">PDF</p-button>
