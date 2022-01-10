@@ -1,7 +1,7 @@
 {
   "name": "SerialQR - Serienbriefe mit QR-Rechnung",
   "short_name": "SerialQR",
-  "theme_color": "#1976d2",
+  "theme_color": "#262626",
   "background_color": "#fafafa",
   "display": "standalone",
   "scope": "./",

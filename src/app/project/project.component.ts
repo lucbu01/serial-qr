@@ -1,5 +1,5 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { Subscription } from 'rxjs';
@@ -19,6 +19,21 @@ export class ProjectComponent implements OnInit, OnDestroy {
   smallerToolbar = true;
   viewEnabled = true;
   mobile = true;
+  promptEvent?: any;
+
+  @HostListener('window:beforeinstallprompt', ['$event'])
+  onbeforeinstallprompt(e: any) {
+    e.preventDefault();
+    this.promptEvent = e;
+    if (
+      this.shouldInstall() &&
+      !localStorage.getItem('serial-qr.installprompt')
+    ) {
+      localStorage.setItem('serial-qr.installprompt', 'true');
+      this.promptEvent.prompt();
+    }
+    this.updateMenubar();
+  }
 
   constructor(
     private projectService: ProjectService,
@@ -26,6 +41,21 @@ export class ProjectComponent implements OnInit, OnDestroy {
     private router: Router,
     private breakpointObserver: BreakpointObserver
   ) {}
+
+  public installPWA() {
+    this.promptEvent.prompt();
+    this.promptEvent.userChoice.then(() =>
+      setTimeout(() => this.updateMenubar(), 1000)
+    );
+  }
+
+  public shouldInstall(): boolean {
+    return !this.isRunningStandalone() && this.promptEvent !== undefined;
+  }
+
+  public isRunningStandalone(): boolean {
+    return window.matchMedia('(display-mode: standalone)').matches;
+  }
 
   ngOnInit(): void {
     this.subscriptions.push(
@@ -117,6 +147,12 @@ export class ProjectComponent implements OnInit, OnDestroy {
         label: 'Generieren und Ansehen',
         routerLink: 'view',
         visible: !this.router.url.endsWith('/view')
+      },
+      {
+        icon: 'material-icons install_desktop',
+        label: 'App installieren',
+        command: () => this.installPWA(),
+        visible: this.shouldInstall()
       }
     ];
     this.rightItems = [

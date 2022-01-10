@@ -22,7 +22,13 @@ import { ProjectService } from './services/project.service';
 import { EditorComponent } from './editor/editor.component';
 
 @NgModule({
-  declarations: [AppComponent, ProjectComponent, EditComponent, ViewComponent, EditorComponent],
+  declarations: [
+    AppComponent,
+    ProjectComponent,
+    EditComponent,
+    ViewComponent,
+    EditorComponent
+  ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
