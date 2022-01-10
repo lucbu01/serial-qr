@@ -44,9 +44,12 @@ export class ProjectComponent implements OnInit, OnDestroy {
 
   public installPWA() {
     this.promptEvent.prompt();
-    this.promptEvent.userChoice.then(() =>
-      setTimeout(() => this.updateMenubar(), 1000)
-    );
+    this.promptEvent.userChoice.then((choiceResult: any) => {
+      if (choiceResult.outcome === 'accepted') {
+        this.promptEvent = undefined;
+        this.updateMenubar();
+      }
+    });
   }
 
   public shouldInstall(): boolean {
