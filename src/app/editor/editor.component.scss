@@ -1,0 +1,11 @@
+::ng-deep {
+  .ql-toolbar {
+    display: flex;
+    align-items: center;
+
+    .ql-label {
+      margin: 0 5px;
+      font-weight: bold;
+    }
+  }
+}

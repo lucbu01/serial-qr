@@ -1,6 +1,4 @@
-import { BreakpointObserver } from '@angular/cdk/layout';
-import { Component, ViewChild } from '@angular/core';
-import { Editor } from 'primeng/editor';
+import { Component } from '@angular/core';
 import { ProjectService } from '../services/project.service';
 
 @Component({
@@ -9,8 +7,6 @@ import { ProjectService } from '../services/project.service';
   styleUrls: ['./edit.component.scss']
 })
 export class EditComponent {
-  editor = 'dsdf';
-
   get showView() {
     return this.projectService.showEdit;
   }
@@ -19,10 +15,5 @@ export class EditComponent {
     return this.projectService.activeProject;
   }
 
-  @ViewChild('quill') quill?: Editor;
-
-  constructor(
-    private projectService: ProjectService,
-    private breakpointObserver: BreakpointObserver
-  ) {}
+  constructor(private projectService: ProjectService) {}
 }

@@ -19,9 +19,10 @@ import { ProjectComponent } from './project/project.component';
 import { EditComponent } from './edit/edit.component';
 import { ViewComponent } from './view/view.component';
 import { ProjectService } from './services/project.service';
+import { EditorComponent } from './editor/editor.component';
 
 @NgModule({
-  declarations: [AppComponent, ProjectComponent, EditComponent, ViewComponent],
+  declarations: [AppComponent, ProjectComponent, EditComponent, ViewComponent, EditorComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SwUpdate } from '@angular/service-worker';
 import { PrimeNGConfig } from 'primeng/api';
 
 @Component({
@@ -7,10 +8,15 @@ import { PrimeNGConfig } from 'primeng/api';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  constructor(private primeConfig: PrimeNGConfig) {}
+  constructor(private primeConfig: PrimeNGConfig, private swUpdate: SwUpdate) {}
 
   ngOnInit(): void {
     this.primeConfig.ripple = true;
+    if (this.swUpdate.isEnabled) {
+      this.swUpdate.versionUpdates.subscribe(() => {
+        this.swUpdate.activateUpdate().then(() => document.location.reload());
+      });
+    }
     this.primeConfig.setTranslation({
       startsWith: 'Startet mit',
       contains: 'Beinhaltet',

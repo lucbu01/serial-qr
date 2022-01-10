@@ -13,10 +13,9 @@
 </p-splitter>
 <ng-template #form>
   <div class="options">
-    <p-editor
-      #quill
-      [(ngModel)]="editor"
-      [formats]="['bold', 'italic', 'underline', 'strike', 'link']"
-    ></p-editor>
+    <qr-editor
+      label="Briefkopf"
+      [(value)]="project.options.customHeading"
+    ></qr-editor>
   </div>
 </ng-template>

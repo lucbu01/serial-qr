@@ -1,0 +1,14 @@
+<p-editor #quill>
+  <ng-template pTemplate="header">
+    <span *ngIf="label" class="ql-label">{{ label }}</span>
+    <span class="ql-formats">
+      <button type="button" class="ql-bold" aria-label="Bold"></button>
+      <button type="button" class="ql-italic" aria-label="Italic"></button>
+      <button
+        type="button"
+        class="ql-underline"
+        aria-label="Underline"
+      ></button>
+    </span>
+  </ng-template>
+</p-editor>

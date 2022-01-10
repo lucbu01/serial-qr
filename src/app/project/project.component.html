@@ -3,16 +3,18 @@
     <ng-template pTemplate="end">
       <div class="title">
         <ng-container *ngFor="let rightItem of rightItems">
-          <a
+          <button
             *ngIf="rightItem.visible"
-            icon="material-icons file_download"
+            pButton
+            pRipple
+            type="button"
+            [icon]="rightItem.icon ? rightItem.icon : ''"
             [pTooltip]="rightItem.tooltip ? rightItem.tooltip : ''"
             tooltipPosition="bottom"
             class="p-ripple p-element p-menuitem-link"
             (click)="rightItem.command ? rightItem.command() : mobile"
-          >
-            <span [class]="'p-menuitem-icon ' + rightItem.icon"></span>
-          </a>
+            class="p-button-rounded p-button-text p-button-plain"
+          ></button>
         </ng-container>
         <h1>SerialQR</h1>
         <img src="/assets/icons/logo.svg" height="40" class="p-mr-2" />
