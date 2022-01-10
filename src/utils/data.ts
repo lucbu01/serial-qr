@@ -123,11 +123,12 @@ export interface SerialQROptions {
 }
 
 export interface SerialQrProjectMetadata {
-  id: number;
+  id?: number;
   name: string;
 }
 
 export interface SerialQRProject {
+  id: number;
   serialQRVersion: number;
   metadata: SerialQrProjectMetadata;
   options: SerialQROptions;

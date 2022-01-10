@@ -15,3 +15,60 @@ body {
   align-items: center;
   background-color: var(--surface-800);
 }
+
+.material-icons {
+  &.folder:after {
+    content: 'folder';
+  }
+  &.save:after {
+    content: 'save';
+  }
+  &.save_as:after {
+    content: 'save_as';
+  }
+  &.delete:after {
+    content: 'delete';
+  }
+  &.drive_file_rename_outline:after {
+    content: 'drive_file_rename_outline';
+  }
+  &.note_add:after {
+    content: 'note_add';
+  }
+  &.folder_open:after {
+    content: 'folder_open';
+  }
+  &.cloud_download:after {
+    content: 'cloud_download';
+  }
+  &.cloud_upload:after {
+    content: 'cloud_upload';
+  }
+  &.preview:after {
+    content: 'preview';
+  }
+  &.edit:after {
+    content: 'edit';
+  }
+  &.description:after {
+    content: 'description';
+  }
+  &.file_download:after {
+    content: 'file_download';
+  }
+  &.refresh:after {
+    content: 'refresh';
+  }
+  &.visibility:after {
+    content: 'visibility';
+  }
+  &.smart_button:after {
+    content: 'smart_button';
+  }
+  &.fullscreen:after {
+    content: 'fullscreen';
+  }
+  &.fullscreen_exit:after {
+    content: 'fullscreen_exit';
+  }
+}

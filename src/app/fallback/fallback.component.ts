@@ -7,7 +7,6 @@ import { ProjectService } from '../services/project.service';
   styleUrls: ['./fallback.component.scss']
 })
 export class FallbackComponent implements OnInit {
-  // eslint-disable-next-line no-unused-vars
   constructor(private projectService: ProjectService) {}
 
   ngOnInit(): void {

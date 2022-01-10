@@ -7,7 +7,6 @@ import { PrimeNGConfig } from 'primeng/api';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  // eslint-disable-next-line no-unused-vars
   constructor(private primeConfig: PrimeNGConfig) {}
 
   ngOnInit(): void {

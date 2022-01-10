@@ -430,7 +430,7 @@ export async function generatePreview(options: SerialQROptions) {
   });
 }
 
-export async function generateFull(options: SerialQROptions) {
+export async function generateFull(options: SerialQROptions, download = false) {
   const doc = new jsPDF({
     orientation: 'p',
     format: 'a4',
@@ -452,6 +452,10 @@ export async function generateFull(options: SerialQROptions) {
       'SerialQR - ein kostenloses und Werbefreies Tool für das Erstellen von Serienbriefen mit QR Rechnung - qr.lucbu.ch',
     subject: 'QR Rechnungen'
   });
+
+  if (download) {
+    doc.save('SerialQR_Rechnungen.pdf');
+  }
 
   return doc.output('dataurlstring', {
     filename: 'SerialQR_Rechnungen.pdf'

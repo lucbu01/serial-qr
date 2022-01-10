@@ -4,9 +4,11 @@
   [showOpenFileButton]="false"
   [showRotateButton]="false"
   [printResolution]="300"
+  [showToolbar]="urlComponent && !mobile"
+  [textLayer]="urlComponent"
   backgroundColor="var(--surface-800)"
   filenameForDownload="SerialQR_Rechnungen.pdf"
-  zoom="100"
+  [zoom]="zoom"
   language="de-CH"
   height="100%"
 ></ngx-extended-pdf-viewer>

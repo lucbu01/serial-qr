@@ -1,7 +1,6 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { BreakpointObserver } from '@angular/cdk/layout';
+import { Component, ViewChild } from '@angular/core';
 import { Editor } from 'primeng/editor';
-import Quill from 'quill';
-import { generatePreview } from 'src/utils/pdf';
 import { ProjectService } from '../services/project.service';
 
 @Component({
@@ -9,9 +8,12 @@ import { ProjectService } from '../services/project.service';
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.scss']
 })
-export class EditComponent implements OnInit {
+export class EditComponent {
   editor = 'dsdf';
-  pdf?: string;
+
+  get showView() {
+    return this.projectService.showEdit;
+  }
 
   get project() {
     return this.projectService.activeProject;
@@ -19,17 +21,8 @@ export class EditComponent implements OnInit {
 
   @ViewChild('quill') quill?: Editor;
 
-  // eslint-disable-next-line no-unused-vars
-  constructor(private projectService: ProjectService) {}
-
-  ngOnInit(): void {
-    setTimeout(() => this.generate(), 500);
-  }
-
-  async generate() {
-    if (this.quill) {
-      console.log((this.quill.getQuill() as Quill).getContents());
-    }
-    this.pdf = await generatePreview(this.project.options);
-  }
+  constructor(
+    private projectService: ProjectService,
+    private breakpointObserver: BreakpointObserver
+  ) {}
 }

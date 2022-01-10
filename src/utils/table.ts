@@ -91,7 +91,6 @@ export function drawInvoiceTable(
     body,
     startY: y,
     styles: {
-      font: 'Helvetica',
       textColor: '#000000',
       halign: 'right',
       lineWidth: 0

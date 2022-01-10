@@ -6,10 +6,12 @@ import { ServiceWorkerModule } from '@angular/service-worker';
 import { environment } from '../environments/environment';
 
 import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
+import { LayoutModule } from '@angular/cdk/layout';
 import { EditorModule } from 'primeng/editor';
 import { ButtonModule } from 'primeng/button';
 import { MenubarModule } from 'primeng/menubar';
 import { SplitterModule } from 'primeng/splitter';
+import { TooltipModule } from 'primeng/tooltip';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -26,6 +28,7 @@ import { ProjectService } from './services/project.service';
     FormsModule,
     ReactiveFormsModule,
     AppRoutingModule,
+    LayoutModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
@@ -36,7 +39,8 @@ import { ProjectService } from './services/project.service';
     EditorModule,
     ButtonModule,
     MenubarModule,
-    SplitterModule
+    SplitterModule,
+    TooltipModule
   ],
   providers: [ProjectService],
   bootstrap: [AppComponent]
