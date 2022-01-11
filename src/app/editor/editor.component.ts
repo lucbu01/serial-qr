@@ -40,12 +40,8 @@ export class EditorComponent {
   }
   get value() {
     const ops = this.quill ? this.quill.getContents().ops : [];
-    if (
-      ops.length === 0 ||
-      !this.editorInstance ||
-      !this.editorInstance.value ||
-      this.editorInstance.value.trim() === ''
-    ) {
+
+    if (ops.length === 0 || this.quill?.getText().trim() === '') {
       return undefined;
     }
     return ops;
