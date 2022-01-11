@@ -15,9 +15,12 @@ import { Operation } from 'src/utils/data';
   styleUrls: ['./editor.component.scss']
 })
 export class EditorComponent {
-  quill?: Quill;
+  @ViewChild('quill')
+  editorInstance?: Editor;
 
-  _contents?: Operation[];
+  get quill(): Quill | undefined {
+    return this.editorInstance?.getQuill();
+  }
 
   @Output()
   valueChange: EventEmitter<Operation[]> = new EventEmitter();
@@ -28,31 +31,27 @@ export class EditorComponent {
   @Input()
   set value(value: Operation[] | undefined) {
     if (this.quill) {
-      if (
-        value &&
-        !this.quill.hasFocus() &&
-        this._contents != this.quill.getContents().ops
-      ) {
-        this.quill.setContents(value as any);
+      if (value && !this.quill?.hasFocus()) {
+        this.quill?.setContents(value as any);
       }
     } else {
-      this._contents = value;
+      setTimeout(() => (this.value = value));
     }
   }
   get value() {
-    return this.quill ? this.quill.getContents().ops : [];
+    const ops = this.quill ? this.quill.getContents().ops : [];
+    if (
+      ops.length === 0 ||
+      !this.editorInstance ||
+      !this.editorInstance.value ||
+      this.editorInstance.value.trim() === ''
+    ) {
+      return undefined;
+    }
+    return ops;
   }
 
-  @ViewChild('quill')
-  set editorInstance(value: Editor) {
-    value.onInit.subscribe(() => {
-      this.quill = value.getQuill() as Quill;
-      if (this._contents) {
-        this.quill.setContents(value as any);
-      }
-      this.quill.on('text-change', () =>
-        this.valueChange.emit(this.quill?.getContents().ops)
-      );
-    });
+  changed() {
+    this.valueChange.emit(this.value);
   }
 }

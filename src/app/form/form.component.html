@@ -1,0 +1,211 @@
+<div class="options">
+  <div class="sticky">
+    <p>
+      <button
+        pButton
+        *ngFor="let dataKey of dataKeys"
+        class="p-button-sm p-button-rounded p-button-plain p-button-text"
+        (click)="dataKeyClicked(dataKey)"
+      >
+        {{ dataKey }}
+      </button>
+    </p>
+  </div>
+  <div [class.next-to]="!dataInplace.active">
+    <p>
+      <p-inplace #dataInplace>
+        <ng-template pTemplate="display">
+          <button pButton><b>Daten laden</b></button>
+        </ng-template>
+        <ng-template pTemplate="content">
+          <p-fileUpload
+            name="data[]"
+            [customUpload]="true"
+            (uploadHandler)="dataInplace.deactivate(); loadFiles($event)"
+            (onClear)="dataInplace.deactivate()"
+            [multiple]="true"
+            [files]="files"
+            accept=".xlsx"
+            uploadLabel="Files lesen"
+          ></p-fileUpload>
+        </ng-template>
+      </p-inplace>
+    </p>
+    <p>
+      <p-fileUpload
+        [style]="{ 'margin-right': '12px' }"
+        name="logo[]"
+        mode="basic"
+        [customUpload]="true"
+        (uploadHandler)="loadLogo($event)"
+        [multiple]="false"
+        [auto]="true"
+        accept=".svg,.png,.jpg,.jpeg"
+        chooseLabel="Logo auswählen"
+        chooseIcon=""
+      ></p-fileUpload>
+    </p>
+    <p>
+      <button *ngIf="project.options.logo" pButton>
+        <b>Logo löschen</b>
+      </button>
+    </p>
+  </div>
+  <h2>Allgemeines</h2>
+  <div class="flex-form">
+    <div class="element">
+      <h3>Allgemeines</h3>
+      <p class="p-field p-fluid">
+        <label for="place">Titel</label>
+        <input
+          pInputText
+          required
+          [(ngModel)]="project.options.title"
+          id="place"
+        />
+      </p>
+      <p class="p-field p-fluid">
+        <label for="place">Ort</label>
+        <input
+          pInputText
+          required
+          [(ngModel)]="project.options.place"
+          id="place"
+        />
+      </p>
+    </div>
+    <div class="element" *ngIf="project.options.logo">
+      <h3>Logo</h3>
+      <p class="p-field p-fluid">
+        <label for="logo-width">Logo Breite</label>
+        <p-inputNumber
+          [required]="true"
+          [(ngModel)]="project.options.logo.width"
+          itemId="logo-width"
+          suffix=" mm"
+        ></p-inputNumber>
+      </p>
+      <p class="p-field p-fluid">
+        <label for="logo-height">Logo Höhe</label>
+        <p-inputNumber
+          [required]="true"
+          [(ngModel)]="project.options.logo.height"
+          itemId="logo-height"
+          suffix=" mm"
+        ></p-inputNumber>
+      </p>
+      <p class="p-field p-fluid">
+        <label for="logo-correction-x">Logo Verschiebung X</label>
+        <p-inputNumber
+          [required]="true"
+          [(ngModel)]="project.options.logo.correctionX"
+          itemId="logo-correction-x"
+          suffix=" mm"
+        ></p-inputNumber>
+      </p>
+      <p class="p-field p-fluid">
+        <label for="logo-correction-x">Logo Verschiebung Y</label>
+        <p-inputNumber
+          [required]="true"
+          [(ngModel)]="project.options.logo.correctionX"
+          itemId="logo-correction-y"
+          suffix=" mm"
+        ></p-inputNumber>
+      </p>
+    </div>
+    <div class="element">
+      <h3>Absender / Kreditor</h3>
+      <p class="p-field p-fluid">
+        <label for="iban">IBAN</label>
+        <p-inputMask
+          [(ngModel)]="project.options.creditor.iban"
+          itemId="iban"
+          mask="CH99 9999 9999 9999 9999 9"
+        ></p-inputMask>
+      </p>
+      <p class="p-field p-fluid">
+        <label for="creditor-name">Name</label>
+        <input
+          pInputText
+          required
+          [(ngModel)]="project.options.creditor.name"
+          id="creditor-name"
+        />
+      </p>
+      <p class="p-field p-fluid">
+        <label for="creditor-address">Adresse</label>
+        <input
+          pInputText
+          [(ngModel)]="project.options.creditor.address"
+          id="creditor-address"
+        />
+      </p>
+      <p class="p-field p-fluid">
+        <label for="creditor-zipAndPlace">PLZ Ort</label>
+        <input
+          pInputText
+          required
+          [(ngModel)]="project.options.creditor.zipAndPlace"
+          id="creditor-zipAndPlace"
+        />
+      </p>
+    </div>
+    <div class="element">
+      <h3>Empfänger / Debitor</h3>
+      <p class="p-field p-fluid">
+        <label for="debtor-name">Name</label>
+        <input
+          pInputText
+          required
+          [(ngModel)]="project.options.debtor.name"
+          id="debtor-name"
+        />
+      </p>
+      <p class="p-field p-fluid">
+        <label for="debtor-address">Adresse</label>
+        <input
+          pInputText
+          [(ngModel)]="project.options.debtor.address"
+          id="debtor-address"
+        />
+      </p>
+      <p class="p-field p-fluid">
+        <label for="debtor-zipAndPlace">PLZ Ort</label>
+        <input
+          pInputText
+          required
+          [(ngModel)]="project.options.debtor.zipAndPlace"
+          id="debtor-zipAndPlace"
+        />
+      </p>
+    </div>
+  </div>
+  <h2>Rechnung</h2>
+  <h2>Optonales</h2>
+  <div class="flex-form">
+    <p class="editor">
+      <qr-editor
+        label="Briefkopf"
+        [(value)]="project.options.customHeading"
+      ></qr-editor>
+    </p>
+    <p class="editor">
+      <qr-editor
+        label="Empfängeradresse"
+        [(value)]="project.options.customAddress"
+      ></qr-editor>
+    </p>
+    <p class="editor">
+      <qr-editor
+        label="Text vor Rechnung"
+        [(value)]="project.options.textBeforeTable"
+      ></qr-editor>
+    </p>
+    <p class="editor">
+      <qr-editor
+        label="Text nach Rechnung"
+        [(value)]="project.options.textAfterTable"
+      ></qr-editor>
+    </p>
+  </div>
+</div>

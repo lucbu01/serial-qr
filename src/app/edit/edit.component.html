@@ -1,3 +1,6 @@
+<ng-template #form>
+  <qr-form></qr-form>
+</ng-template>
 <p-splitter
   *ngIf="showView; else form"
   [style]="{ height: '100%', width: '100%' }"
@@ -5,17 +8,9 @@
   [minSizes]="[40, 30]"
 >
   <ng-template pTemplate>
-    <ng-container [ngTemplateOutlet]="form"></ng-container>
+    <qr-form></qr-form>
   </ng-template>
   <ng-template pTemplate>
     <qr-view *ngIf="showView" [zoom]="75"></qr-view>
   </ng-template>
 </p-splitter>
-<ng-template #form>
-  <div class="options">
-    <qr-editor
-      label="Briefkopf"
-      [(value)]="project.options.customHeading"
-    ></qr-editor>
-  </div>
-</ng-template>

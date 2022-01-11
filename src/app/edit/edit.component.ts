@@ -11,9 +11,5 @@ export class EditComponent {
     return this.projectService.showEdit;
   }
 
-  get project() {
-    return this.projectService.activeProject;
-  }
-
   constructor(private projectService: ProjectService) {}
 }

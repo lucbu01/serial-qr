@@ -30,7 +30,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
       !localStorage.getItem('serial-qr.installprompt')
     ) {
       localStorage.setItem('serial-qr.installprompt', 'true');
-      this.promptEvent.prompt();
+      // show overlay this.promptEvent.prompt();
     }
     this.updateMenubar();
   }
@@ -117,7 +117,11 @@ export class ProjectComponent implements OnInit, OnDestroy {
         icon: 'material-icons folder',
         label: 'Projekt',
         items: [
-          { icon: 'material-icons save', label: 'Speichern' },
+          {
+            icon: 'material-icons save',
+            label: 'Speichern',
+            command: () => this.projectService.save()
+          },
           { icon: 'material-icons save_as', label: 'Speichern unter' },
           {
             icon: 'material-icons drive_file_rename_outline',
@@ -174,7 +178,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
       },
       {
         icon: 'material-icons fullscreen',
-        label: 'Grosser Editierbereich',
+        tooltip: 'Grosser Editierbereich',
         visible:
           this.router.url.endsWith('/edit') &&
           this.projectService.showEdit &&

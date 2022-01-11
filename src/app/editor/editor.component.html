@@ -1,4 +1,4 @@
-<p-editor #quill>
+<p-editor #quill (onTextChange)="changed()">
   <ng-template pTemplate="header">
     <span *ngIf="label" class="ql-label">{{ label }}</span>
     <span class="ql-formats">
