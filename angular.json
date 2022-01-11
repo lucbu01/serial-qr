@@ -23,7 +23,11 @@
             "customWebpackConfig": {
               "path": "./custom-webpack.config.js"
             },
-            "allowedCommonJsDependencies": ["qrcode", "jspdf-autotable"],
+            "allowedCommonJsDependencies": [
+              "qrcode",
+              "jspdf-autotable",
+              "xlsx"
+            ],
             "outputPath": "dist/serial-qr",
             "index": "src/index.html",
             "main": "src/main.ts",
