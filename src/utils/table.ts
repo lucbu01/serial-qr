@@ -24,7 +24,7 @@ function getColumns(options: SerialQROptions, invoice: Invoice) {
   });
   if (hasCount) {
     columns.push({ header: 'Anzahl', dataKey: 'count' });
-    columns.push({ header: 'Preis', dataKey: 'amount' });
+    columns.push({ header: 'Betrag', dataKey: 'amount' });
     columns.push({ dataKey: 'currency', footer: 'CHF' });
     columns.push({
       header: 'Total',
@@ -34,7 +34,7 @@ function getColumns(options: SerialQROptions, invoice: Invoice) {
   } else {
     columns.push({ dataKey: 'currency', footer: 'CHF' });
     columns.push({
-      header: 'Preis',
+      header: 'Betrag',
       dataKey: 'totalAmount',
       footer: invoice.toalAmount
     });

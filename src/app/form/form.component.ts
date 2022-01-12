@@ -2,6 +2,7 @@ import { Clipboard } from '@angular/cdk/clipboard';
 import { Component, OnDestroy, OnInit } from '@angular/core';
 import { MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
+import { SerialQRDataFile, SerialQRPosition } from 'src/utils/data';
 import { readExcel, readFileAsDataUrl, readFileAsText } from 'src/utils/file';
 import { ProjectService } from '../services/project.service';
 
@@ -90,6 +91,14 @@ export class FormComponent implements OnInit, OnDestroy {
       this.projectService.regenerate();
     }
     this.projectService.save();
+  }
+
+  deletePosition(dataFile: SerialQRDataFile, position: SerialQRPosition) {
+    dataFile.positions.splice(dataFile.positions.indexOf(position), 1);
+  }
+
+  addPosition(dataFile: SerialQRDataFile) {
+    dataFile.positions.push({ designation: 'Neu', amount: '1.00' });
   }
 
   async loadFiles(event: { files: File[] }) {

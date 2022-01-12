@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { liveQuery } from 'dexie';
 import { MessageService } from 'primeng/api';
-import { Subject } from 'rxjs';
+import { ReplaySubject, Subject } from 'rxjs';
 import { SerialQRProject, SerialQrProjectMetadata } from 'src/utils/data';
 import { db } from 'src/utils/db';
 
@@ -12,7 +12,7 @@ import { db } from 'src/utils/db';
 export class ProjectService {
   activeProject: SerialQRProject;
   readonly regenerateEvent: Subject<void> = new Subject();
-  readonly onLoaded: Subject<SerialQRProject> = new Subject();
+  readonly onLoaded: ReplaySubject<SerialQRProject> = new ReplaySubject();
   showEdit = false;
 
   metadata: SerialQrProjectMetadata[] = [];
@@ -214,9 +214,10 @@ export class ProjectService {
             right: 2,
             bottom: 2
           },
+          striped: true,
           showFooter: true,
           showPositionNr: true,
-          showLines: true
+          showLines: false
         },
         textAfterTable: [
           {

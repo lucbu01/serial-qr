@@ -89,6 +89,7 @@ export interface SerialQRTableTemplate {
   header: SerialQRTableSectionTemplate;
   body: SerialQRTableSectionTemplate;
   footer: SerialQRTableSectionTemplate;
+  striped: boolean;
   showFooter: boolean;
   showLines: boolean;
   showPositionNr: boolean;

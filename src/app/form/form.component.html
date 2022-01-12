@@ -54,18 +54,57 @@
   <h2>Allgemeines</h2>
   <div class="flex-form">
     <div class="element">
+      <h3>Seite</h3>
+      <p class="p-field p-fluid">
+        <label for="site-margin-top">Seitenrand oben *</label>
+        <p-inputNumber
+          [required]="true"
+          [(ngModel)]="project.options.margin.top"
+          inputId="site-margin-top"
+          suffix=" mm"
+        ></p-inputNumber>
+      </p>
+      <p class="p-field p-fluid">
+        <label for="site-margin-bottom">Seitenrand unten *</label>
+        <p-inputNumber
+          [required]="true"
+          [(ngModel)]="project.options.margin.bottom"
+          inputId="site-margin-bottom"
+          suffix=" mm"
+        ></p-inputNumber>
+      </p>
+      <p class="p-field p-fluid">
+        <label for="site-margin-left">Seitenrand links *</label>
+        <p-inputNumber
+          [required]="true"
+          [(ngModel)]="project.options.margin.left"
+          inputId="site-margin-left"
+          suffix=" mm"
+        ></p-inputNumber>
+      </p>
+      <p class="p-field p-fluid">
+        <label for="site-margin-top-right">Seitenrand rechts *</label>
+        <p-inputNumber
+          [required]="true"
+          [(ngModel)]="project.options.margin.right"
+          inputId="site-margin-right"
+          suffix=" mm"
+        ></p-inputNumber>
+      </p>
+    </div>
+    <div class="element">
       <h3>Allgemeines</h3>
       <p class="p-field p-fluid">
-        <label for="place">Titel</label>
+        <label for="title">Titel *</label>
         <input
           pInputText
           required
           [(ngModel)]="project.options.title"
-          id="place"
+          id="title"
         />
       </p>
       <p class="p-field p-fluid">
-        <label for="place">Ort</label>
+        <label for="place">Ort *</label>
         <input
           pInputText
           required
@@ -73,58 +112,100 @@
           id="place"
         />
       </p>
+      <p class="p-field p-fluid">
+        <label for="date">Datum</label>
+        <p-calendar
+          [(ngModel)]="project.options.date"
+          inputId="date"
+        ></p-calendar>
+      </p>
+      <p class="p-field p-fluid">
+        <label for="dateformat">Datumsformat *</label>
+        <p-dropdown
+          [options]="[
+            { label: 'kurz', value: 'short' },
+            { label: 'mittel', value: 'medium' },
+            { label: 'lang', value: 'long' }
+          ]"
+          [required]="true"
+          [(ngModel)]="project.options.dateFormat"
+          inputId="dateformat"
+        ></p-dropdown>
+      </p>
+      <p class="p-field p-fluid">
+        <label for="message">Mitteilung QR Einzahlungsschein *</label>
+        <input
+          pInputText
+          [(ngModel)]="project.options.message"
+          required
+          id="message"
+        />
+      </p>
     </div>
     <div class="element" *ngIf="project.options.logo">
       <h3>Logo</h3>
       <p class="p-field p-fluid">
-        <label for="logo-width">Logo Breite</label>
+        <label for="logo-width">Breite *</label>
         <p-inputNumber
           [required]="true"
           [(ngModel)]="project.options.logo.width"
-          itemId="logo-width"
+          inputId="logo-width"
           suffix=" mm"
         ></p-inputNumber>
       </p>
       <p class="p-field p-fluid">
-        <label for="logo-height">Logo Höhe</label>
+        <label for="logo-height">Höhe *</label>
         <p-inputNumber
           [required]="true"
           [(ngModel)]="project.options.logo.height"
-          itemId="logo-height"
+          inputId="logo-height"
           suffix=" mm"
         ></p-inputNumber>
       </p>
       <p class="p-field p-fluid">
-        <label for="logo-correction-x">Logo Verschiebung X</label>
+        <label for="logo-correction-x">Verschiebung X *</label>
         <p-inputNumber
           [required]="true"
           [(ngModel)]="project.options.logo.correctionX"
-          itemId="logo-correction-x"
+          inputId="logo-correction-x"
           suffix=" mm"
         ></p-inputNumber>
       </p>
       <p class="p-field p-fluid">
-        <label for="logo-correction-x">Logo Verschiebung Y</label>
+        <label for="logo-correction-x">Verschiebung Y *</label>
         <p-inputNumber
           [required]="true"
           [(ngModel)]="project.options.logo.correctionX"
-          itemId="logo-correction-y"
+          inputId="logo-correction-y"
           suffix=" mm"
         ></p-inputNumber>
+      </p>
+      <p class="p-field p-fluid">
+        <label for="dateformat">Position *</label>
+        <p-dropdown
+          [options]="[
+            { label: 'links', value: 'left' },
+            { label: 'rechts', value: 'right' }
+          ]"
+          [(ngModel)]="project.options.logo.location"
+          id="dateformat"
+          [required]="true"
+        ></p-dropdown>
       </p>
     </div>
     <div class="element">
       <h3>Absender / Kreditor</h3>
       <p class="p-field p-fluid">
-        <label for="iban">IBAN</label>
+        <label for="iban">IBAN *</label>
         <p-inputMask
           [(ngModel)]="project.options.creditor.iban"
-          itemId="iban"
+          inputId="iban"
           mask="CH99 9999 9999 9999 9999 9"
+          [required]="true"
         ></p-inputMask>
       </p>
       <p class="p-field p-fluid">
-        <label for="creditor-name">Name</label>
+        <label for="creditor-name">Name *</label>
         <input
           pInputText
           required
@@ -141,7 +222,7 @@
         />
       </p>
       <p class="p-field p-fluid">
-        <label for="creditor-zipAndPlace">PLZ Ort</label>
+        <label for="creditor-zipAndPlace">PLZ / Ort *</label>
         <input
           pInputText
           required
@@ -149,11 +230,23 @@
           id="creditor-zipAndPlace"
         />
       </p>
+      <p class="p-field p-fluid">
+        <label for="heading-position">Position *</label>
+        <p-dropdown
+          [options]="[
+            { label: 'links', value: 'left' },
+            { label: 'rechts', value: 'right' }
+          ]"
+          [(ngModel)]="project.options.headingLocation"
+          id="heading-position"
+          [required]="true"
+        ></p-dropdown>
+      </p>
     </div>
     <div class="element">
       <h3>Empfänger / Debitor</h3>
       <p class="p-field p-fluid">
-        <label for="debtor-name">Name</label>
+        <label for="debtor-name">Name *</label>
         <input
           pInputText
           required
@@ -170,7 +263,7 @@
         />
       </p>
       <p class="p-field p-fluid">
-        <label for="debtor-zipAndPlace">PLZ Ort</label>
+        <label for="debtor-zipAndPlace">PLZ / Ort *</label>
         <input
           pInputText
           required
@@ -178,9 +271,344 @@
           id="debtor-zipAndPlace"
         />
       </p>
+      <p class="p-field p-fluid">
+        <label for="address-position">Position *</label>
+        <p-dropdown
+          [options]="[
+            { label: 'links', value: 'left' },
+            { label: 'rechts', value: 'right' },
+            { label: 'rechts (neu)', value: 'right_new' }
+          ]"
+          [(ngModel)]="project.options.addressLocation"
+          id="address-position"
+          [required]="true"
+        ></p-dropdown>
+      </p>
+      <p class="p-field-checkbox p-fluid">
+        <p-checkbox
+          [(ngModel)]="project.options.showSenderAddress"
+          [binary]="true"
+          inputId="show-sender-address"
+        ></p-checkbox>
+        <label for="show-sender-address">Absender darüber anzeigen</label>
+      </p>
+    </div>
+
+    <div class="element">
+      <h3>Schriftgrössen</h3>
+      <p class="p-field p-fluid">
+        <label for="heading-size">Briefkopf *</label>
+        <p-inputNumber
+          [required]="true"
+          [(ngModel)]="project.options.headingSize"
+          inputId="heading-size"
+          suffix=" pt"
+        ></p-inputNumber>
+      </p>
+      <p class="p-field p-fluid">
+        <label for="address-size">Adresse *</label>
+        <p-inputNumber
+          [required]="true"
+          [(ngModel)]="project.options.addressSize"
+          inputId="address-size"
+          suffix=" pt"
+        ></p-inputNumber>
+      </p>
+      <p class="p-field p-fluid">
+        <label for="title-size">Titel *</label>
+        <p-inputNumber
+          [required]="true"
+          [(ngModel)]="project.options.titleSize"
+          inputId="title-size"
+          suffix=" pt"
+        ></p-inputNumber>
+      </p>
+      <p class="p-field p-fluid">
+        <label for="text-size">Text *</label>
+        <p-inputNumber
+          [required]="true"
+          [(ngModel)]="project.options.textSize"
+          inputId="text-size"
+          suffix=" pt"
+        ></p-inputNumber>
+      </p>
+
+      <p class="p-field p-fluid">
+        <label for="table-header-size">Rechnung Kopfzeile *</label>
+        <p-inputNumber
+          [required]="true"
+          [(ngModel)]="project.options.tableTemplate.header.size"
+          inputId="table-header-size"
+          suffix=" pt"
+        ></p-inputNumber>
+      </p>
+      <p class="p-field p-fluid">
+        <label for="table-body-size">Rechnung *</label>
+        <p-inputNumber
+          [required]="true"
+          [(ngModel)]="project.options.tableTemplate.body.size"
+          inputId="table-body-size"
+          suffix=" pt"
+        ></p-inputNumber>
+      </p>
+      <p class="p-field p-fluid">
+        <label for="table-footer-size">Rechnung Fusszeile *</label>
+        <p-inputNumber
+          [required]="true"
+          [(ngModel)]="project.options.tableTemplate.footer.size"
+          inputId="table-footer-size"
+          suffix=" pt"
+        ></p-inputNumber>
+      </p>
+    </div>
+    <div class="element">
+      <h3>Rechnung</h3>
+      <p class="p-field-checkbox p-fluid">
+        <p-checkbox
+          [(ngModel)]="project.options.tableTemplate.header.bold"
+          [binary]="true"
+          inputId="table-header-bold"
+        ></p-checkbox>
+        <label for="table-header-bold">Kopfzeile fett</label>
+      </p>
+      <p class="p-field-checkbox p-fluid">
+        <p-checkbox
+          [(ngModel)]="project.options.tableTemplate.header.italic"
+          [binary]="true"
+          inputId="table-header-italic"
+        ></p-checkbox>
+        <label for="table-header-italic">Kopfzeile kursiv</label>
+      </p>
+      <p class="p-field-checkbox p-field p-fluid">
+        <span>
+          <p-colorPicker
+            [(ngModel)]="project.options.tableTemplate.header.background"
+            inputId="table-header-background"
+          ></p-colorPicker>
+          <label for="table-header-background">Kopfzeile Hintergrund *</label>
+        </span>
+        <p-inputMask
+          [(ngModel)]="project.options.tableTemplate.header.background"
+          inputId="table-header-background-text"
+          mask="#******"
+          characterPattern="[A-Fa-f1-9]"
+          [required]="true"
+        ></p-inputMask>
+      </p>
+      <p class="p-field-checkbox p-fluid">
+        <p-checkbox
+          [(ngModel)]="project.options.tableTemplate.body.bold"
+          [binary]="true"
+          inputId="table-body-bold"
+        ></p-checkbox>
+        <label for="table-body-bold">Rechnung fett</label>
+      </p>
+      <p class="p-field-checkbox p-fluid">
+        <p-checkbox
+          [(ngModel)]="project.options.tableTemplate.body.italic"
+          [binary]="true"
+          inputId="table-body-italic"
+        ></p-checkbox>
+        <label for="table-body-italic">Rechnung kursiv</label>
+      </p>
+      <p class="p-field-checkbox p-fluid">
+        <span>
+          <p-colorPicker
+            [(ngModel)]="project.options.tableTemplate.body.background"
+            inputId="table-body-background"
+          ></p-colorPicker>
+          <label for="table-body-background">Rechnung Hintergrund *</label>
+        </span>
+        <p-inputMask
+          [(ngModel)]="project.options.tableTemplate.body.background"
+          inputId="table-body-background-text"
+          mask="#******"
+          characterPattern="[A-Fa-f1-9]"
+          [required]="true"
+        ></p-inputMask>
+      </p>
+      <p class="p-field-checkbox p-fluid">
+        <p-checkbox
+          [(ngModel)]="project.options.tableTemplate.showFooter"
+          [binary]="true"
+          inputId="table-footer-show"
+        ></p-checkbox>
+        <label for="table-footer-show">Fusszeile anzeigen</label>
+      </p>
+      <ng-container *ngIf="project.options.tableTemplate.showFooter">
+        <p class="p-field-checkbox p-fluid">
+          <p-checkbox
+            [(ngModel)]="project.options.tableTemplate.footer.bold"
+            [binary]="true"
+            inputId="table-footer-bold"
+          ></p-checkbox>
+          <label for="table-footer-bold">Fusszeile fett</label>
+        </p>
+        <p class="p-field-checkbox p-fluid">
+          <p-checkbox
+            [(ngModel)]="project.options.tableTemplate.footer.italic"
+            [binary]="true"
+            inputId="table-footer-italic"
+          ></p-checkbox>
+          <label for="table-footer-italic">Fusszeile kursiv</label>
+        </p>
+        <p class="p-field-checkbox p-fluid">
+          <span>
+            <p-colorPicker
+              [(ngModel)]="project.options.tableTemplate.footer.background"
+              inputId="table-footer-background"
+            ></p-colorPicker>
+            <label for="table-footer-background">Fusszeile Hintergrund *</label>
+          </span>
+          <p-inputMask
+            [(ngModel)]="project.options.tableTemplate.footer.background"
+            inputId="table-footer-background-text"
+            mask="#******"
+            characterPattern="[A-Fa-f1-9]"
+            [required]="true"
+          ></p-inputMask>
+        </p>
+      </ng-container>
+    </div>
+    <div class="element">
+      <h3>Rechnung</h3>
+      <p class="p-field-checkbox p-fluid">
+        <p-checkbox
+          [(ngModel)]="project.options.mergeSameCreditors"
+          [binary]="true"
+          inputId="merge-same-creditors"
+        ></p-checkbox>
+        <label for="merge-same-creditory"
+          >Gleiche Empfägner zusammenführen</label
+        >
+      </p>
+      <p class="p-field-checkbox p-fluid">
+        <p-checkbox
+          [(ngModel)]="project.options.tableTemplate.striped"
+          [binary]="true"
+          inputId="table-striped"
+        ></p-checkbox>
+        <label for="table-striped">Rechnung Hintergrund gestreift</label>
+      </p>
+      <p class="p-field-checkbox p-fluid">
+        <p-checkbox
+          [(ngModel)]="project.options.tableTemplate.showLines"
+          [binary]="true"
+          inputId="table-lines"
+        ></p-checkbox>
+        <label for="table-lines">Linien anzeigen</label>
+      </p>
+      <p class="p-field p-fluid">
+        <label for="cell-padding-top">Einrückung Zelle oben *</label>
+        <p-inputNumber
+          [required]="true"
+          [(ngModel)]="project.options.tableTemplate.padding.top"
+          inputId="cell-padding-top"
+          suffix=" mm"
+        ></p-inputNumber>
+      </p>
+      <p class="p-field p-fluid">
+        <label for="cell-padding-bottom">Einrückung Zelle unten *</label>
+        <p-inputNumber
+          [required]="true"
+          [(ngModel)]="project.options.tableTemplate.padding.bottom"
+          inputId="cell-padding-bottom"
+          suffix=" mm"
+        ></p-inputNumber>
+      </p>
+      <p class="p-field p-fluid">
+        <label for="cell-padding-left">Einrückung Zelle links *</label>
+        <p-inputNumber
+          [required]="true"
+          [(ngModel)]="project.options.tableTemplate.padding.left"
+          inputId="cell-padding-left"
+          suffix=" mm"
+        ></p-inputNumber>
+      </p>
+      <p class="p-field p-fluid">
+        <label for="cell-padding-top-right">Einrückung Zelle rechts *</label>
+        <p-inputNumber
+          [required]="true"
+          [(ngModel)]="project.options.tableTemplate.padding.right"
+          inputId="cell-padding-right"
+          suffix=" mm"
+        ></p-inputNumber>
+      </p>
     </div>
   </div>
   <h2>Rechnung</h2>
+  <p-tabView>
+    <p-tabPanel
+      [header]="dataFile.src"
+      *ngFor="let dataFile of project.options.dataFiles"
+    >
+      <p-table [value]="dataFile.positions" responsiveLayout="scroll">
+        <ng-template pTemplate="header" let-columns>
+          <tr>
+            <th>Bezeichnung</th>
+            <th>Anzahl</th>
+            <th>Betrag</th>
+            <th>
+              <button
+                pButton
+                pRipple
+                icon="pi pi-plus"
+                class="p-button-sm p-button-rounded p-button-text p-button-success"
+                (click)="addPosition(dataFile)"
+              ></button>
+            </th>
+          </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-rowData>
+          <tr>
+            <td pEditableColumn>
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input
+                    pInputText
+                    type="text"
+                    [(ngModel)]="rowData.designation"
+                  />
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ rowData.designation }}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <td pEditableColumn>
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input pInputText type="text" [(ngModel)]="rowData.count" />
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ rowData.count }}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <td pEditableColumn>
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input pInputText type="text" [(ngModel)]="rowData.amount" />
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ rowData.amount }}
+                </ng-template>
+              </p-cellEditor>
+            </td>
+            <td>
+              <button
+                pButton
+                pRipple
+                icon="pi pi-trash"
+                class="p-button-sm p-button-rounded p-button-text p-button-danger"
+                (click)="deletePosition(dataFile, rowData)"
+              ></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+    </p-tabPanel>
+  </p-tabView>
   <h2>Optonales</h2>
   <div class="flex-form">
     <p class="editor">

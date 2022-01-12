@@ -22,6 +22,11 @@ import { TableModule } from 'primeng/table';
 import { DropdownModule } from 'primeng/dropdown';
 import { InplaceModule } from 'primeng/inplace';
 import { ToastModule } from 'primeng/toast';
+import { TabViewModule } from 'primeng/tabview';
+import { CheckboxModule } from 'primeng/checkbox';
+import { ListboxModule } from 'primeng/listbox';
+import { CalendarModule } from 'primeng/calendar';
+import { ColorPickerModule } from 'primeng/colorpicker';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -70,7 +75,12 @@ import { FormComponent } from './form/form.component';
     TableModule,
     DropdownModule,
     InplaceModule,
-    ToastModule
+    ToastModule,
+    TabViewModule,
+    CheckboxModule,
+    ListboxModule,
+    CalendarModule,
+    ColorPickerModule
   ],
   providers: [MessageService, ProjectService],
   bootstrap: [AppComponent]

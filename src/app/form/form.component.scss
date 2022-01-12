@@ -30,13 +30,13 @@
 
   & > .element {
     flex: 1 0 200px;
-    min-width: 300px;
+    min-width: 350px;
     margin: 0 5px;
   }
 
   & > .editor {
     flex: 1 0 400px;
-    min-width: 400px;
+    min-width: 350px;
     margin: 0 5px;
     margin-bottom: 10px;
 
@@ -51,4 +51,8 @@
   display: block;
   padding-left: 0.5rem;
   margin-bottom: 0.5rem;
+}
+
+.p-field-checkbox label {
+  margin-left: 5px;
 }

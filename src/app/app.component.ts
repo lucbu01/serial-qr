@@ -87,7 +87,7 @@ export class AppComponent implements OnInit {
         'Nov',
         'Dez'
       ],
-      dateFormat: 'dd.mm.yyyy',
+      dateFormat: 'dd.mm.yy',
       firstDayOfWeek: 1,
       today: 'Heute',
       weekHeader: 'Wk',

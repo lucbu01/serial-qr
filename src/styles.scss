@@ -21,6 +21,10 @@ body {
   }
 }
 
+.p-submenu-list {
+  z-index: 11 !important;
+}
+
 .material-icons {
   &.folder:after {
     content: 'folder';
