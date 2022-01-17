@@ -1,86 +1,30 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ServiceWorkerModule } from '@angular/service-worker';
-import { HttpClientModule } from '@angular/common/http';
 import { environment } from '../environments/environment';
 
-import { NgxExtendedPdfViewerModule } from 'ngx-extended-pdf-viewer';
-import { LayoutModule } from '@angular/cdk/layout';
-import { ClipboardModule } from '@angular/cdk/clipboard';
-import { EditorModule } from 'primeng/editor';
-import { ButtonModule } from 'primeng/button';
-import { MenubarModule } from 'primeng/menubar';
-import { SplitterModule } from 'primeng/splitter';
-import { TooltipModule } from 'primeng/tooltip';
-import { FileUploadModule } from 'primeng/fileupload';
-import { InputMaskModule } from 'primeng/inputmask';
-import { InputTextModule } from 'primeng/inputtext';
-import { InputNumberModule } from 'primeng/inputnumber';
-import { TableModule } from 'primeng/table';
-import { DropdownModule } from 'primeng/dropdown';
-import { InplaceModule } from 'primeng/inplace';
 import { ToastModule } from 'primeng/toast';
-import { TabViewModule } from 'primeng/tabview';
-import { CheckboxModule } from 'primeng/checkbox';
-import { ListboxModule } from 'primeng/listbox';
-import { CalendarModule } from 'primeng/calendar';
-import { ColorPickerModule } from 'primeng/colorpicker';
-
-import { AppRoutingModule } from './app-routing.module';
-import { AppComponent } from './app.component';
-import { ProjectComponent } from './project/project.component';
-import { EditComponent } from './edit/edit.component';
-import { ViewComponent } from './view/view.component';
-import { ProjectService } from './services/project.service';
-import { EditorComponent } from './editor/editor.component';
 import { MessageService } from 'primeng/api';
-import { FormComponent } from './form/form.component';
+
+import { AppComponent } from './app.component';
+import { FallbackComponent } from './fallback/fallback.component';
+import { AppRoutingModule } from './app-routing.module';
+import { ProjectService } from './services/project.service';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    ProjectComponent,
-    EditComponent,
-    ViewComponent,
-    EditorComponent,
-    FormComponent
-  ],
+  declarations: [AppComponent, FallbackComponent],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
-    FormsModule,
-    ReactiveFormsModule,
     AppRoutingModule,
-    HttpClientModule,
-    ClipboardModule,
-    LayoutModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the app is stable
       // or after 30 seconds (whichever comes first).
       registrationStrategy: 'registerWhenStable:30000'
     }),
-    NgxExtendedPdfViewerModule,
-    EditorModule,
-    ButtonModule,
-    MenubarModule,
-    SplitterModule,
-    TooltipModule,
-    FileUploadModule,
-    InputMaskModule,
-    InputTextModule,
-    InputNumberModule,
-    TableModule,
-    DropdownModule,
-    InplaceModule,
-    ToastModule,
-    TabViewModule,
-    CheckboxModule,
-    ListboxModule,
-    CalendarModule,
-    ColorPickerModule
+    ToastModule
   ],
   providers: [MessageService, ProjectService],
   bootstrap: [AppComponent]

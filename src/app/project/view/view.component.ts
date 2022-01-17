@@ -2,7 +2,7 @@ import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { Component, Input, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { generateFull, generatePreview } from 'src/utils/pdf';
-import { ProjectService } from '../services/project.service';
+import { ProjectService } from '../../services/project.service';
 
 @Component({
   selector: 'qr-view',

@@ -4,7 +4,7 @@ import { MessageService } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { SerialQRDataFile, SerialQRPosition } from 'src/utils/data';
 import { readExcel, readFileAsDataUrl, readFileAsText } from 'src/utils/file';
-import { ProjectService } from '../services/project.service';
+import { ProjectService } from '../../services/project.service';
 
 @Component({
   selector: 'qr-form',
