@@ -1,5 +1,5 @@
 <div align="center">
-  <img alt="QR-Bill Generator" src="https://raw.githubusercontent.com/lucbu01/serial-qr/master/src/assets/icons/icon-128x128.png">
+  <img alt="SerialQR" src="https://raw.githubusercontent.com/lucbu01/serial-qr/master/src/assets/icons/icon-128x128.png">
 </div>
 
 ---
@@ -9,13 +9,13 @@
     <img alt="MIT License" src="https://img.shields.io/badge/licence-MIT-brightgreen">
   </a>
   <a href="https://github.com/lucbu01/serial-qr/issues">
-    <img alt="Issues" src="https://img.shields.io/github/issues-raw/lucbu01/qr-bill-generator?style=flat-square">
+    <img alt="Issues" src="https://img.shields.io/github/issues-raw/lucbu01/serial-qr?style=flat-square">
   </a>
   <a href="https://github.com/lucbu01/serial-qr/stargazers">
-    <img alt="Stars" src="https://img.shields.io/github/stars/lucbu01/qr-bill-generator?color=brightgreen&style=flat-square">
+    <img alt="Stars" src="https://img.shields.io/github/stars/lucbu01/serial-qr?color=brightgreen&style=flat-square">
   </a>
   <a href="https://github.com/lucbu01/serial-qr/actions?query=workflow%3Abuild">
-    <img alt="CI" src="https://img.shields.io/github/workflow/status/lucbu01/qr-bill-generator/build?style=flat-square">
+    <img alt="CI" src="https://img.shields.io/github/workflow/status/lucbu01/serial-qr/build?style=flat-square">
   </a>
 </div>
 
