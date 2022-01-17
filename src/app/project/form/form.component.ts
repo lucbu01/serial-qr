@@ -88,7 +88,18 @@ export class FormComponent implements OnInit, OnDestroy {
     if (this.showView) {
       this.projectService.regenerate();
     }
-    this.projectService.save();
+  }
+
+  removeLogo() {
+    this.project.options.logo = undefined;
+    this.messageService.add({
+      severity: 'success',
+      summary: 'Logo entfernt',
+      detail: 'Das Logo wurde entfernt!'
+    });
+    if (this.showView) {
+      this.projectService.regenerate();
+    }
   }
 
   deletePosition(dataFile: SerialQRDataFile, position: SerialQRPosition) {
@@ -136,6 +147,5 @@ export class FormComponent implements OnInit, OnDestroy {
     if (this.showView) {
       this.projectService.regenerate();
     }
-    this.projectService.save();
   }
 }

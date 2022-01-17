@@ -46,7 +46,7 @@
       ></p-fileUpload>
     </p>
     <p>
-      <button *ngIf="project.options.logo" pButton>
+      <button *ngIf="project.options.logo" pButton (click)="removeLogo()">
         <b>Logo löschen</b>
       </button>
     </p>

@@ -107,8 +107,31 @@ export class ProjectComponent implements OnInit, OnDestroy {
     await generateFull(this.projectService.activeProject.options, true);
   }
 
-  regenerate() {
+  @HostListener('document:keydown.control.s')
+  save(e?: Event) {
+    if (e) {
+      e.preventDefault();
+    }
+    this.projectService.save();
+    return false;
+  }
+
+  @HostListener('document:keydown.control.shift.r')
+  reload(e?: Event) {
+    if (e) {
+      e.preventDefault();
+    }
+    this.projectService.open(this.projectService.activeProject.id, false);
+    return false;
+  }
+
+  @HostListener('document:keydown.control.r')
+  regenerate(e?: Event) {
+    if (e) {
+      e.preventDefault();
+    }
     this.projectService.regenerate();
+    return false;
   }
 
   updateMenubar() {
@@ -117,6 +140,11 @@ export class ProjectComponent implements OnInit, OnDestroy {
         icon: 'material-icons folder',
         label: 'Projekt',
         items: [
+          {
+            icon: 'material-icons refresh',
+            label: 'Neu laden',
+            command: () => this.reload()
+          },
           {
             icon: 'material-icons save',
             label: 'Speichern',
