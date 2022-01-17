@@ -49,19 +49,19 @@ export async function drawQrCode(doc: jsPDF, data: QrInvoiceData) {
 }
 
 export async function drawQrInvoice(doc: jsPDF, data: QrInvoiceData) {
+  const lineHeightFactor = doc.getLineHeightFactor();
+  data.creditor.iban = data.creditor.iban.replace(' ', '');
   await drawQrCode(doc, data);
   doc.setFont('Helvetica', 'normal', 'bold').setFontSize(11);
-  doc.text(lang.receipt, 5, A4.height - 100, { baseline: 'top' });
-  doc.text(lang.paymentPart, 67, A4.height - 100, {
-    baseline: 'top'
-  });
-  let actualY = A4.height - 93 + ptToMm(6) * doc.getLineHeightFactor();
+  doc.text(lang.receipt, 5, A4.height - 100 + ptToMm(11));
+  doc.text(lang.paymentPart, 67, A4.height - 100 + ptToMm(11));
+  let actualY = A4.height - 93 + ptToMm(6) * lineHeightFactor;
   doc.setFont('Helvetica', 'normal', 'bold').setFontSize(6);
   doc.text(lang.account, 5, actualY);
-  actualY += ptToMm(8) * doc.getLineHeightFactor();
+  actualY += ptToMm(8) * lineHeightFactor;
   doc.setFont('Helvetica', 'normal', 'normal').setFontSize(8);
   doc.text(formatIBAN(data.creditor.iban), 5, actualY);
-  actualY += ptToMm(8) * doc.getLineHeightFactor();
+  actualY += ptToMm(8) * lineHeightFactor;
   actualY = drawFormattedText(
     doc,
     [{ insert: formatAddress(data.creditor) }],
@@ -69,20 +69,20 @@ export async function drawQrInvoice(doc: jsPDF, data: QrInvoiceData) {
     actualY,
     52,
     8
-  );
-  actualY += ptToMm(14) * doc.getLineHeightFactor();
+  ).y;
+  actualY += ptToMm(14) * lineHeightFactor;
   if (data.reference) {
     doc.setFont('Helvetica', 'normal', 'bold').setFontSize(6);
     doc.text(lang.reference, 5, actualY);
-    actualY += ptToMm(8) * doc.getLineHeightFactor();
+    actualY += ptToMm(8) * lineHeightFactor;
     doc.setFont('Helvetica', 'normal', 'normal').setFontSize(8);
     doc.text(formatIBAN(data.reference), 5, actualY);
-    actualY += ptToMm(14) * doc.getLineHeightFactor();
+    actualY += ptToMm(14) * lineHeightFactor;
   }
   if (data.debtor) {
     doc.setFont('Helvetica', 'normal', 'bold').setFontSize(6);
     doc.text(lang.payableBy, 5, actualY);
-    actualY += ptToMm(8) * doc.getLineHeightFactor();
+    actualY += ptToMm(8) * lineHeightFactor;
     doc.setFont('Helvetica', 'normal', 'normal').setFontSize(8);
     actualY = drawFormattedText(
       doc,
@@ -91,13 +91,12 @@ export async function drawQrInvoice(doc: jsPDF, data: QrInvoiceData) {
       actualY,
       52,
       8
-    );
+    ).y;
   }
-  actualY = A4.height - 37 + ptToMm(8) * doc.getLineHeightFactor();
+  actualY = A4.height - 37 + ptToMm(8) * lineHeightFactor;
   doc.setFont('Helvetica', 'normal', 'bold').setFontSize(6);
-  doc.text(lang.acceptancePoint, 57, A4.height - 23, {
-    align: 'right',
-    baseline: 'top'
+  doc.text(lang.acceptancePoint, 57, A4.height - 23 + ptToMm(6), {
+    align: 'right'
   });
   doc.text(lang.currency, 5, actualY);
   if (data.amount) {
@@ -108,7 +107,7 @@ export async function drawQrInvoice(doc: jsPDF, data: QrInvoiceData) {
   if (data.amount) {
     doc.text(lang.amount, 90, actualY);
   }
-  actualY += ptToMm(10) * doc.getLineHeightFactor();
+  actualY += ptToMm(10) * lineHeightFactor;
   doc.setFont('Helvetica', 'normal', 'normal');
   doc.text(data.currency, 5, actualY);
   if (data.amount) {
@@ -120,13 +119,13 @@ export async function drawQrInvoice(doc: jsPDF, data: QrInvoiceData) {
     doc.text(data.amount, 90, actualY);
   }
 
-  actualY = A4.height - 93 - ptToMm(11) * doc.getLineHeightFactor();
+  actualY = A4.height - 100 + ptToMm(9);
   doc.setFont('Helvetica', 'normal', 'bold').setFontSize(8);
   doc.text(lang.account, 118, actualY);
-  actualY += ptToMm(10) * doc.getLineHeightFactor();
+  actualY += ptToMm(10) * lineHeightFactor;
   doc.setFont('Helvetica', 'normal', 'normal').setFontSize(10);
   doc.text(formatIBAN(data.creditor.iban), 118, actualY);
-  actualY += ptToMm(10) * doc.getLineHeightFactor();
+  actualY += ptToMm(10) * lineHeightFactor;
   actualY = drawFormattedText(
     doc,
     [{ insert: formatAddress(data.creditor) }],
@@ -134,26 +133,26 @@ export async function drawQrInvoice(doc: jsPDF, data: QrInvoiceData) {
     actualY,
     68,
     10
-  );
-  actualY += ptToMm(18) * doc.getLineHeightFactor();
+  ).y;
+  actualY += ptToMm(18) * lineHeightFactor;
   if (data.reference) {
     doc.setFont('Helvetica', 'normal', 'bold').setFontSize(8);
     doc.text(lang.reference, 118, actualY);
-    actualY += ptToMm(10) * doc.getLineHeightFactor();
+    actualY += ptToMm(10) * lineHeightFactor;
     doc.setFont('Helvetica', 'normal', 'normal').setFontSize(10);
     doc.text(formatIBAN(data.reference), 118, actualY);
-    actualY += ptToMm(18) * doc.getLineHeightFactor();
+    actualY += ptToMm(18) * lineHeightFactor;
   }
   if (data.message || data.invoiceInformation) {
     doc.setFont('Helvetica', 'normal', 'bold').setFontSize(8);
     doc.text(lang.additionalInformation, 118, actualY);
     doc.setFont('Helvetica', 'normal', 'normal').setFontSize(10);
     if (data.message) {
-      actualY += ptToMm(10) * doc.getLineHeightFactor();
+      actualY += ptToMm(10) * lineHeightFactor;
       doc.text(data.message, 118, actualY);
     }
     if (data.invoiceInformation) {
-      actualY += ptToMm(10) * doc.getLineHeightFactor();
+      actualY += ptToMm(10) * lineHeightFactor;
       actualY = drawFormattedText(
         doc,
         [{ insert: data.invoiceInformation }],
@@ -161,14 +160,14 @@ export async function drawQrInvoice(doc: jsPDF, data: QrInvoiceData) {
         actualY,
         68,
         10
-      );
+      ).y;
     }
-    actualY += ptToMm(18) * doc.getLineHeightFactor();
+    actualY += ptToMm(18) * lineHeightFactor;
   }
   if (data.debtor) {
     doc.setFont('Helvetica', 'normal', 'bold').setFontSize(8);
     doc.text(lang.payableBy, 118, actualY);
-    actualY += ptToMm(10) * doc.getLineHeightFactor();
+    actualY += ptToMm(10) * lineHeightFactor;
     doc.setFont('Helvetica', 'normal', 'normal').setFontSize(10);
     actualY = drawFormattedText(
       doc,
@@ -177,8 +176,17 @@ export async function drawQrInvoice(doc: jsPDF, data: QrInvoiceData) {
       actualY,
       68,
       10
-    );
+    ).y;
   }
+}
+
+export function measureFormattedText(
+  doc: jsPDF,
+  delta: Operation[],
+  maxWidth: number,
+  fontSize: number
+) {
+  return drawFormattedText(doc, delta, 0, 0, maxWidth, fontSize, false);
 }
 
 export function drawFormattedText(
@@ -187,22 +195,25 @@ export function drawFormattedText(
   x: number,
   y: number,
   width: number,
-  fontSize: number
+  fontSize: number,
+  shouldWrite = true
 ) {
   doc.setFontSize(fontSize);
   let actualX = x;
   let actualY = y;
+  let endX = x;
   for (const op of delta) {
     if (op.insert) {
       let attributes = op.attributes;
       if (!attributes) {
         attributes = {};
       }
-      const font = 'Helvetica';
-      const fontStyle = attributes['italic'] ? 'italic' : 'normal';
-      const fontWidth = attributes['bold'] ? 'bold' : 'normal';
+      const lineHeightFactor = doc.getLineHeightFactor(),
+        text = op.insert as string,
+        font = 'Helvetica',
+        fontStyle = attributes['italic'] ? 'italic' : 'normal',
+        fontWidth = attributes['bold'] ? 'bold' : 'normal';
       doc.setFont(font, fontStyle, fontWidth);
-      const text = op.insert as string;
       text.split('\n').forEach((line, index, array) => {
         let scale = { w: 0, h: ptToMm(fontSize) };
         if (line !== '') {
@@ -210,23 +221,31 @@ export function drawFormattedText(
             .splitTextToSize(line, width, {})
             .forEach((part: string, i: number, a: string[]) => {
               scale = doc.getTextDimensions(part);
-              doc.text(part, actualX, actualY, { maxWidth: width });
+              if (shouldWrite) {
+                doc.text(part, actualX, actualY, { maxWidth: width });
+              }
               if (i < a.length - 1) {
                 actualX = x;
-                actualY += scale.h * doc.getLineHeightFactor();
+                actualY += scale.h * lineHeightFactor;
               }
             });
         }
         if (index < array.length - 1) {
           actualX = x;
-          actualY += scale.h * doc.getLineHeightFactor();
+          actualY += scale.h * lineHeightFactor;
+          if (actualX + scale.w > endX) {
+            endX = actualX + scale.w;
+          }
         } else {
           actualX += scale.w;
+          if (actualX > endX) {
+            endX = actualX;
+          }
         }
       });
     }
   }
-  return actualY;
+  return { x: endX, y: actualY };
 }
 
 export function drawFormattedTextAndEndWithNewLine(
@@ -244,22 +263,45 @@ export function drawFormattedTextAndEndWithNewLine(
   return drawFormattedText(doc, delta, x, y, width, fontSize);
 }
 
-export function drawHeading(
+export async function drawHeading(
   doc: jsPDF,
   options: SerialQROptions,
   invoice: Invoice
 ) {
+  let result = { x: 0, y: 0 };
   const heading = invoice.customHeading
     ? invoice.customHeading
     : [{ insert: formatAddress(options.creditor) }];
-  return drawFormattedText(
+  const headingWidth = measureFormattedText(
     doc,
     heading,
-    options.margin.left,
-    options.margin.top + 30 + 5,
     80,
     options.headingSize
-  );
+  ).x;
+  const headingLocation = options.headingLocation;
+  const logoLocation = options.logo ? options.logo.location : undefined;
+  let [x, y] = [
+    headingLocation.includes('left')
+      ? options.margin.left
+      : A4.width - options.margin.left - headingWidth,
+    options.margin.top + ptToMm(options.headingSize)
+  ];
+  if (options.logo) {
+    const logo = await drawLogo(
+      options,
+      doc,
+      measureFormattedText(doc, heading, 80, options.headingSize).x
+    );
+    if (headingLocation === logoLocation) {
+      y = logo.y + logo.height + 1;
+    } else if (headingLocation === 'logo_left' && logoLocation === 'right') {
+      x = logo.x - 1 - headingWidth;
+    } else if (headingLocation === 'logo_right' && logoLocation === 'left') {
+      x = logo.x + logo.width + 1;
+    }
+  }
+  result = drawFormattedText(doc, heading, x, y, 80, options.headingSize);
+  return result;
 }
 
 export function drawAddress(
@@ -291,11 +333,9 @@ export async function drawInvoice(
   let actualY = 0;
   const standardWidth = A4.width - options.margin.left - options.margin.right;
 
-  await drawLogo(options, doc);
-
-  actualY = drawHeading(doc, options, invoice);
-
-  actualY = drawAddress(doc, options, invoice);
+  const headingY = (await drawHeading(doc, options, invoice)).y;
+  const addressY = drawAddress(doc, options, invoice).y;
+  actualY = headingY > addressY ? headingY : addressY;
 
   const month =
     options.dateFormat === 'long'
@@ -318,7 +358,7 @@ export async function drawInvoice(
     actualY + ptToMm(2 * options.textSize) * doc.getLineHeightFactor(),
     standardWidth,
     options.textSize
-  );
+  ).y;
 
   actualY = drawFormattedText(
     doc,
@@ -327,7 +367,7 @@ export async function drawInvoice(
     actualY,
     standardWidth,
     options.titleSize
-  );
+  ).y;
 
   actualY = drawFormattedTextAndEndWithNewLine(
     doc,
@@ -336,7 +376,7 @@ export async function drawInvoice(
     actualY,
     standardWidth,
     options.textSize
-  );
+  ).y;
 
   actualY = drawInvoiceTable(doc, options, invoice, actualY);
 
@@ -347,10 +387,11 @@ export async function drawInvoice(
     actualY,
     standardWidth,
     options.textSize
-  );
+  ).y;
 
   if (actualY + 105 > A4.height) {
     doc.addPage().setPage(doc.internal.pages.length - 1);
+    actualY = (await drawHeading(doc, options, invoice)).y;
   }
 
   await drawQrInvoice(doc, {
@@ -359,10 +400,10 @@ export async function drawInvoice(
     currency: 'CHF',
     refTyp: 'NON',
     amount: invoice.toalAmount,
-    message: options.message,
+    message: invoice.message /*,
     invoiceInformation:
       '//S1/10/10201409/11/170309/20/14000000/30/106017086/31/210122',
-    reference: 'RF18539007547034'
+    reference: 'RF18539007547034'*/
   });
 
   if (index < invoices.length - 1) {
@@ -370,7 +411,11 @@ export async function drawInvoice(
   }
 }
 
-export async function drawLogo(options: SerialQROptions, doc: jsPDF) {
+export async function drawLogo(
+  options: SerialQROptions,
+  doc: jsPDF,
+  headingWidth: number
+) {
   if (options.logo) {
     const filename = options.logo.src;
     let filetype: 'svg' | 'jpeg' | 'png' | undefined;
@@ -382,12 +427,26 @@ export async function drawLogo(options: SerialQROptions, doc: jsPDF) {
       filetype = 'png';
     }
 
-    const correctionX = options.logo.correctionX ? options.logo.correctionX : 0;
-    const correctionY = options.logo.correctionY ? options.logo.correctionY : 0;
-    const x = options.margin.left - correctionX;
-    const y = options.margin.top - correctionY;
     const w = options.logo.width;
     const h = options.logo.height;
+    const correctionX = options.logo.correctionX ? options.logo.correctionX : 0;
+    const correctionY = options.logo.correctionY ? options.logo.correctionY : 0;
+    const y = options.margin.top - correctionY;
+    let x = 0;
+    if (options.logo.location === 'left') {
+      if (options.headingLocation === 'logo_left') {
+        x = options.margin.left + headingWidth + 1 - correctionX;
+      } else {
+        x = options.margin.left - correctionX;
+      }
+    } else {
+      if (options.headingLocation === 'logo_right') {
+        x =
+          A4.width - options.margin.right - headingWidth - 1 - w + correctionX;
+      } else {
+        x = A4.width - options.margin.right - w - correctionX;
+      }
+    }
 
     if (options.logo.content) {
       if (filetype === 'svg') {
@@ -400,7 +459,9 @@ export async function drawLogo(options: SerialQROptions, doc: jsPDF) {
       img.src = options.logo.src;
       doc.addImage(img, filetype, x, y, w, h);
     }
+    return { x, y, width: w, height: h };
   }
+  return { x: 0, y: 0, width: 0, height: 0 };
 }
 
 export async function generatePreview(options: SerialQROptions) {

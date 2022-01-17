@@ -7,12 +7,17 @@ import {
 } from './data';
 import {
   parseDefinition,
-  parseNumberDefinition,
-  parseOperationssDefinition
+  parseMultilineDefinition,
+  parseMultilineOperationsDefinition,
+  parseNumberDefinition
 } from './definition-parser';
 
 export function roundAndFormat(value: number) {
   return (Math.round(value * 100) / 100).toFixed(2);
+}
+
+export function getLines(value: Invoice) {
+  return value.personPositions.map((pp) => pp.person);
 }
 
 export function calculateInvoices(options: SerialQROptions): Invoice[] {
@@ -62,27 +67,49 @@ export function calculateInvoices(options: SerialQROptions): Invoice[] {
           invoice.toalAmount = roundAndFormat(
             parseFloat(invoice.toalAmount) + totalForPerson
           );
+          const lines = getLines(invoice);
+          invoice.title = parseMultilineDefinition(options.title, lines);
+          invoice.textBeforeTable = parseMultilineOperationsDefinition(
+            options.textBeforeTable,
+            lines
+          );
+          invoice.textAfterTable = parseMultilineOperationsDefinition(
+            options.textAfterTable,
+            lines
+          );
+          invoice.message = parseMultilineDefinition(options.message, lines);
+          invoice.customAddress = options.customAddress
+            ? parseMultilineOperationsDefinition(options.customAddress, lines)
+            : undefined;
+          invoice.customHeading = options.customHeading
+            ? parseMultilineOperationsDefinition(options.customHeading, lines)
+            : undefined;
+          invoice.textBeforeTable;
         } else {
           const customAddress = options.customAddress
-            ? parseOperationssDefinition(options.customAddress, content)
+            ? parseMultilineOperationsDefinition(options.customAddress, [
+                content
+              ])
             : undefined;
           const customHeading = options.customHeading
-            ? parseOperationssDefinition(options.customHeading, content)
+            ? parseMultilineOperationsDefinition(options.customHeading, [
+                content
+              ])
             : undefined;
           const invoice: Invoice = {
             debtor,
             personPositions: [personPositions],
-            title: parseDefinition(options.title, content),
-            textBeforeTable: parseOperationssDefinition(
+            title: parseMultilineDefinition(options.title, [content]),
+            textBeforeTable: parseMultilineOperationsDefinition(
               options.textBeforeTable,
-              content
+              [content]
             ),
-            textAfterTable: parseOperationssDefinition(
+            textAfterTable: parseMultilineOperationsDefinition(
               options.textAfterTable,
-              content
+              [content]
             ),
             toalAmount: roundAndFormat(totalForPerson),
-            message: options.message,
+            message: parseMultilineDefinition(options.message, [content]),
             customAddress,
             customHeading
           };

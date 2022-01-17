@@ -4,13 +4,13 @@
 <p-splitter
   *ngIf="showView; else form"
   [style]="{ height: '100%', width: '100%' }"
-  [panelSizes]="[60, 40]"
-  [minSizes]="[40, 30]"
+  [panelSizes]="[70, 30]"
+  [minSizes]="[40, 20]"
 >
   <ng-template pTemplate>
     <qr-form></qr-form>
   </ng-template>
   <ng-template pTemplate>
-    <qr-view *ngIf="showView" [zoom]="75"></qr-view>
+    <qr-view *ngIf="showView" zoom="auto"></qr-view>
   </ng-template>
 </p-splitter>

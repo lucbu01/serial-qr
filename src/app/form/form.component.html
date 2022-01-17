@@ -62,6 +62,13 @@
           [(ngModel)]="project.options.margin.top"
           inputId="site-margin-top"
           suffix=" mm"
+          mode="decimal"
+          [minFractionDigits]="1"
+          [maxFractionDigits]="2"
+          [minFractionDigits]="1"
+          [step]="1"
+          [showButtons]="true"
+          [min]="0"
         ></p-inputNumber>
       </p>
       <p class="p-field p-fluid">
@@ -71,6 +78,12 @@
           [(ngModel)]="project.options.margin.bottom"
           inputId="site-margin-bottom"
           suffix=" mm"
+          mode="decimal"
+          [minFractionDigits]="1"
+          [maxFractionDigits]="2"
+          [step]="1"
+          [showButtons]="true"
+          [min]="0"
         ></p-inputNumber>
       </p>
       <p class="p-field p-fluid">
@@ -80,6 +93,13 @@
           [(ngModel)]="project.options.margin.left"
           inputId="site-margin-left"
           suffix=" mm"
+          suffix=" mm"
+          mode="decimal"
+          [minFractionDigits]="1"
+          [maxFractionDigits]="2"
+          [step]="1"
+          [showButtons]="true"
+          [min]="0"
         ></p-inputNumber>
       </p>
       <p class="p-field p-fluid">
@@ -89,6 +109,12 @@
           [(ngModel)]="project.options.margin.right"
           inputId="site-margin-right"
           suffix=" mm"
+          mode="decimal"
+          [minFractionDigits]="1"
+          [maxFractionDigits]="2"
+          [step]="1"
+          [showButtons]="true"
+          [min]="0"
         ></p-inputNumber>
       </p>
     </div>
@@ -151,6 +177,12 @@
           [(ngModel)]="project.options.logo.width"
           inputId="logo-width"
           suffix=" mm"
+          mode="decimal"
+          [minFractionDigits]="1"
+          [maxFractionDigits]="2"
+          [step]="1"
+          [showButtons]="true"
+          [min]="0"
         ></p-inputNumber>
       </p>
       <p class="p-field p-fluid">
@@ -160,6 +192,12 @@
           [(ngModel)]="project.options.logo.height"
           inputId="logo-height"
           suffix=" mm"
+          mode="decimal"
+          [minFractionDigits]="1"
+          [maxFractionDigits]="2"
+          [step]="1"
+          [showButtons]="true"
+          [min]="0"
         ></p-inputNumber>
       </p>
       <p class="p-field p-fluid">
@@ -169,15 +207,25 @@
           [(ngModel)]="project.options.logo.correctionX"
           inputId="logo-correction-x"
           suffix=" mm"
+          mode="decimal"
+          [minFractionDigits]="1"
+          [maxFractionDigits]="2"
+          [showButtons]="true"
+          [step]="0.1"
         ></p-inputNumber>
       </p>
       <p class="p-field p-fluid">
         <label for="logo-correction-x">Verschiebung Y *</label>
         <p-inputNumber
           [required]="true"
-          [(ngModel)]="project.options.logo.correctionX"
+          [(ngModel)]="project.options.logo.correctionY"
           inputId="logo-correction-y"
           suffix=" mm"
+          mode="decimal"
+          [minFractionDigits]="1"
+          [maxFractionDigits]="2"
+          [showButtons]="true"
+          [step]="0.1"
         ></p-inputNumber>
       </p>
       <p class="p-field p-fluid">
@@ -235,7 +283,9 @@
         <p-dropdown
           [options]="[
             { label: 'links', value: 'left' },
-            { label: 'rechts', value: 'right' }
+            { label: 'rechts', value: 'right' },
+            { label: 'links neben Logo', value: 'logo_left' },
+            { label: 'rechts neben Logo', value: 'logo_right' }
           ]"
           [(ngModel)]="project.options.headingLocation"
           id="heading-position"
@@ -293,7 +343,6 @@
         <label for="show-sender-address">Absender darüber anzeigen</label>
       </p>
     </div>
-
     <div class="element">
       <h3>Schriftgrössen</h3>
       <p class="p-field p-fluid">
@@ -303,6 +352,12 @@
           [(ngModel)]="project.options.headingSize"
           inputId="heading-size"
           suffix=" pt"
+          mode="decimal"
+          [minFractionDigits]="1"
+          [maxFractionDigits]="2"
+          [step]="1"
+          [showButtons]="true"
+          [min]="0"
         ></p-inputNumber>
       </p>
       <p class="p-field p-fluid">
@@ -312,6 +367,12 @@
           [(ngModel)]="project.options.addressSize"
           inputId="address-size"
           suffix=" pt"
+          mode="decimal"
+          [minFractionDigits]="1"
+          [maxFractionDigits]="2"
+          [step]="1"
+          [showButtons]="true"
+          [min]="0"
         ></p-inputNumber>
       </p>
       <p class="p-field p-fluid">
@@ -321,6 +382,12 @@
           [(ngModel)]="project.options.titleSize"
           inputId="title-size"
           suffix=" pt"
+          mode="decimal"
+          [minFractionDigits]="1"
+          [maxFractionDigits]="2"
+          [step]="1"
+          [showButtons]="true"
+          [min]="0"
         ></p-inputNumber>
       </p>
       <p class="p-field p-fluid">
@@ -330,9 +397,14 @@
           [(ngModel)]="project.options.textSize"
           inputId="text-size"
           suffix=" pt"
+          mode="decimal"
+          [minFractionDigits]="1"
+          [maxFractionDigits]="2"
+          [step]="1"
+          [showButtons]="true"
+          [min]="0"
         ></p-inputNumber>
       </p>
-
       <p class="p-field p-fluid">
         <label for="table-header-size">Rechnung Kopfzeile *</label>
         <p-inputNumber
@@ -340,6 +412,12 @@
           [(ngModel)]="project.options.tableTemplate.header.size"
           inputId="table-header-size"
           suffix=" pt"
+          mode="decimal"
+          [minFractionDigits]="1"
+          [maxFractionDigits]="2"
+          [step]="1"
+          [showButtons]="true"
+          [min]="0"
         ></p-inputNumber>
       </p>
       <p class="p-field p-fluid">
@@ -349,6 +427,12 @@
           [(ngModel)]="project.options.tableTemplate.body.size"
           inputId="table-body-size"
           suffix=" pt"
+          mode="decimal"
+          [minFractionDigits]="1"
+          [maxFractionDigits]="2"
+          [step]="1"
+          [showButtons]="true"
+          [min]="0"
         ></p-inputNumber>
       </p>
       <p class="p-field p-fluid">
@@ -358,26 +442,76 @@
           [(ngModel)]="project.options.tableTemplate.footer.size"
           inputId="table-footer-size"
           suffix=" pt"
+          mode="decimal"
+          [minFractionDigits]="1"
+          [maxFractionDigits]="2"
+          [step]="1"
+          [showButtons]="true"
+          [min]="0"
         ></p-inputNumber>
       </p>
     </div>
     <div class="element">
       <h3>Rechnung</h3>
-      <p class="p-field-checkbox p-fluid">
-        <p-checkbox
-          [(ngModel)]="project.options.tableTemplate.header.bold"
-          [binary]="true"
-          inputId="table-header-bold"
-        ></p-checkbox>
-        <label for="table-header-bold">Kopfzeile fett</label>
+      <p class="p-field p-fluid">
+        <label for="cell-padding-top">Einrückung Zelle oben *</label>
+        <p-inputNumber
+          [required]="true"
+          [(ngModel)]="project.options.tableTemplate.padding.top"
+          inputId="cell-padding-top"
+          suffix=" mm"
+          mode="decimal"
+          [minFractionDigits]="1"
+          [maxFractionDigits]="2"
+          [step]="0.1"
+          [showButtons]="true"
+          [min]="0"
+        ></p-inputNumber>
       </p>
-      <p class="p-field-checkbox p-fluid">
-        <p-checkbox
-          [(ngModel)]="project.options.tableTemplate.header.italic"
-          [binary]="true"
-          inputId="table-header-italic"
-        ></p-checkbox>
-        <label for="table-header-italic">Kopfzeile kursiv</label>
+      <p class="p-field p-fluid">
+        <label for="cell-padding-bottom">Einrückung Zelle unten *</label>
+        <p-inputNumber
+          [required]="true"
+          [(ngModel)]="project.options.tableTemplate.padding.bottom"
+          inputId="cell-padding-bottom"
+          suffix=" mm"
+          mode="decimal"
+          [minFractionDigits]="1"
+          [maxFractionDigits]="2"
+          [step]="0.1"
+          [showButtons]="true"
+          [min]="0"
+        ></p-inputNumber>
+      </p>
+      <p class="p-field p-fluid">
+        <label for="cell-padding-left">Einrückung Zelle links *</label>
+        <p-inputNumber
+          [required]="true"
+          [(ngModel)]="project.options.tableTemplate.padding.left"
+          inputId="cell-padding-left"
+          suffix=" mm"
+          mode="decimal"
+          [minFractionDigits]="1"
+          [maxFractionDigits]="2"
+          [step]="0.1"
+          [showButtons]="true"
+          [min]="0"
+        ></p-inputNumber>
+      </p>
+      <p class="p-field p-fluid">
+        <label for="cell-padding-top-right">Einrückung Zelle rechts *</label>
+        <p-inputNumber
+          [required]="true"
+          [(ngModel)]="project.options.tableTemplate.padding.right"
+          inputId="cell-padding-right"
+          suffix=" mm"
+          mode="decimal"
+          [minFractionDigits]="1"
+          [maxFractionDigits]="2"
+          [step]="0.1"
+          [showButtons]="true"
+          [min]="0"
+        ></p-inputNumber>
       </p>
       <p class="p-field-checkbox p-field p-fluid">
         <span>
@@ -396,22 +530,6 @@
         ></p-inputMask>
       </p>
       <p class="p-field-checkbox p-fluid">
-        <p-checkbox
-          [(ngModel)]="project.options.tableTemplate.body.bold"
-          [binary]="true"
-          inputId="table-body-bold"
-        ></p-checkbox>
-        <label for="table-body-bold">Rechnung fett</label>
-      </p>
-      <p class="p-field-checkbox p-fluid">
-        <p-checkbox
-          [(ngModel)]="project.options.tableTemplate.body.italic"
-          [binary]="true"
-          inputId="table-body-italic"
-        ></p-checkbox>
-        <label for="table-body-italic">Rechnung kursiv</label>
-      </p>
-      <p class="p-field-checkbox p-fluid">
         <span>
           <p-colorPicker
             [(ngModel)]="project.options.tableTemplate.body.background"
@@ -426,6 +544,85 @@
           characterPattern="[A-Fa-f1-9]"
           [required]="true"
         ></p-inputMask>
+      </p>
+      <ng-container *ngIf="project.options.tableTemplate.showFooter">
+        <p class="p-field-checkbox p-fluid">
+          <span>
+            <p-colorPicker
+              [(ngModel)]="project.options.tableTemplate.footer.background"
+              inputId="table-footer-background"
+            ></p-colorPicker>
+            <label for="table-footer-background">Fusszeile Hintergrund *</label>
+          </span>
+          <p-inputMask
+            [(ngModel)]="project.options.tableTemplate.footer.background"
+            inputId="table-footer-background-text"
+            mask="#******"
+            characterPattern="[A-Fa-f1-9]"
+            [required]="true"
+          ></p-inputMask>
+        </p>
+      </ng-container>
+    </div>
+    <div class="element">
+      <h3>Rechnung Optionen</h3>
+      <p class="p-field-checkbox p-fluid">
+        <p-checkbox
+          [(ngModel)]="project.options.mergeSameCreditors"
+          [binary]="true"
+          inputId="merge-same-creditors"
+        ></p-checkbox>
+        <label for="merge-same-creditory"
+          >Gleiche Empfägner zusammenführen</label
+        >
+      </p>
+      <p class="p-field-checkbox p-fluid">
+        <p-checkbox
+          [(ngModel)]="project.options.tableTemplate.striped"
+          [binary]="true"
+          inputId="table-striped"
+        ></p-checkbox>
+        <label for="table-striped">Rechnung Hintergrund gestreift</label>
+      </p>
+      <p class="p-field-checkbox p-fluid">
+        <p-checkbox
+          [(ngModel)]="project.options.tableTemplate.showPositionNr"
+          [binary]="true"
+          inputId="table-lines"
+        ></p-checkbox>
+        <label for="table-lines">Position anzeigen</label>
+      </p>
+      <p class="p-field-checkbox p-fluid">
+        <p-checkbox
+          [(ngModel)]="project.options.tableTemplate.header.bold"
+          [binary]="true"
+          inputId="table-header-bold"
+        ></p-checkbox>
+        <label for="table-header-bold">Kopfzeile fett</label>
+      </p>
+      <p class="p-field-checkbox p-fluid">
+        <p-checkbox
+          [(ngModel)]="project.options.tableTemplate.header.italic"
+          [binary]="true"
+          inputId="table-header-italic"
+        ></p-checkbox>
+        <label for="table-header-italic">Kopfzeile kursiv</label>
+      </p>
+      <p class="p-field-checkbox p-fluid">
+        <p-checkbox
+          [(ngModel)]="project.options.tableTemplate.body.bold"
+          [binary]="true"
+          inputId="table-body-bold"
+        ></p-checkbox>
+        <label for="table-body-bold">Rechnung fett</label>
+      </p>
+      <p class="p-field-checkbox p-fluid">
+        <p-checkbox
+          [(ngModel)]="project.options.tableTemplate.body.italic"
+          [binary]="true"
+          inputId="table-body-italic"
+        ></p-checkbox>
+        <label for="table-body-italic">Rechnung kursiv</label>
       </p>
       <p class="p-field-checkbox p-fluid">
         <p-checkbox
@@ -452,88 +649,7 @@
           ></p-checkbox>
           <label for="table-footer-italic">Fusszeile kursiv</label>
         </p>
-        <p class="p-field-checkbox p-fluid">
-          <span>
-            <p-colorPicker
-              [(ngModel)]="project.options.tableTemplate.footer.background"
-              inputId="table-footer-background"
-            ></p-colorPicker>
-            <label for="table-footer-background">Fusszeile Hintergrund *</label>
-          </span>
-          <p-inputMask
-            [(ngModel)]="project.options.tableTemplate.footer.background"
-            inputId="table-footer-background-text"
-            mask="#******"
-            characterPattern="[A-Fa-f1-9]"
-            [required]="true"
-          ></p-inputMask>
-        </p>
       </ng-container>
-    </div>
-    <div class="element">
-      <h3>Rechnung</h3>
-      <p class="p-field-checkbox p-fluid">
-        <p-checkbox
-          [(ngModel)]="project.options.mergeSameCreditors"
-          [binary]="true"
-          inputId="merge-same-creditors"
-        ></p-checkbox>
-        <label for="merge-same-creditory"
-          >Gleiche Empfägner zusammenführen</label
-        >
-      </p>
-      <p class="p-field-checkbox p-fluid">
-        <p-checkbox
-          [(ngModel)]="project.options.tableTemplate.striped"
-          [binary]="true"
-          inputId="table-striped"
-        ></p-checkbox>
-        <label for="table-striped">Rechnung Hintergrund gestreift</label>
-      </p>
-      <p class="p-field-checkbox p-fluid">
-        <p-checkbox
-          [(ngModel)]="project.options.tableTemplate.showLines"
-          [binary]="true"
-          inputId="table-lines"
-        ></p-checkbox>
-        <label for="table-lines">Linien anzeigen</label>
-      </p>
-      <p class="p-field p-fluid">
-        <label for="cell-padding-top">Einrückung Zelle oben *</label>
-        <p-inputNumber
-          [required]="true"
-          [(ngModel)]="project.options.tableTemplate.padding.top"
-          inputId="cell-padding-top"
-          suffix=" mm"
-        ></p-inputNumber>
-      </p>
-      <p class="p-field p-fluid">
-        <label for="cell-padding-bottom">Einrückung Zelle unten *</label>
-        <p-inputNumber
-          [required]="true"
-          [(ngModel)]="project.options.tableTemplate.padding.bottom"
-          inputId="cell-padding-bottom"
-          suffix=" mm"
-        ></p-inputNumber>
-      </p>
-      <p class="p-field p-fluid">
-        <label for="cell-padding-left">Einrückung Zelle links *</label>
-        <p-inputNumber
-          [required]="true"
-          [(ngModel)]="project.options.tableTemplate.padding.left"
-          inputId="cell-padding-left"
-          suffix=" mm"
-        ></p-inputNumber>
-      </p>
-      <p class="p-field p-fluid">
-        <label for="cell-padding-top-right">Einrückung Zelle rechts *</label>
-        <p-inputNumber
-          [required]="true"
-          [(ngModel)]="project.options.tableTemplate.padding.right"
-          inputId="cell-padding-right"
-          suffix=" mm"
-        ></p-inputNumber>
-      </p>
     </div>
   </div>
   <h2>Rechnung</h2>
@@ -545,7 +661,20 @@
       <p-table [value]="dataFile.positions" responsiveLayout="scroll">
         <ng-template pTemplate="header" let-columns>
           <tr>
-            <th>Bezeichnung</th>
+            <th pEditableColumn>
+              <p-cellEditor>
+                <ng-template pTemplate="input">
+                  <input
+                    pInputText
+                    type="text"
+                    [(ngModel)]="project.options.tableTemplate.designation"
+                  />
+                </ng-template>
+                <ng-template pTemplate="output">
+                  {{ project.options.tableTemplate.designation }}
+                </ng-template>
+              </p-cellEditor>
+            </th>
             <th>Anzahl</th>
             <th>Betrag</th>
             <th>
@@ -609,7 +738,7 @@
       </p-table>
     </p-tabPanel>
   </p-tabView>
-  <h2>Optonales</h2>
+  <h2>Optionales</h2>
   <div class="flex-form">
     <p class="editor">
       <qr-editor

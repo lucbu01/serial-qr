@@ -94,6 +94,7 @@ export interface SerialQRTableTemplate {
   showLines: boolean;
   showPositionNr: boolean;
   padding: Margin;
+  designation: string;
 }
 
 export interface SerialQROptions {
@@ -108,7 +109,7 @@ export interface SerialQROptions {
   showSenderAddress: boolean;
   logo?: SerialQRLogo;
   customHeading?: Operation[];
-  headingLocation: 'left' | 'right';
+  headingLocation: 'left' | 'right' | 'logo_left' | 'logo_right';
   headingSize: number;
   place: string;
   date?: Date;

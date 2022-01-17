@@ -101,10 +101,10 @@ export class ProjectService {
       options: {
         print: 'paper',
         margin: {
-          top: 10,
-          bottom: 10,
-          left: 15,
-          right: 15
+          top: 15,
+          bottom: 15,
+          left: 25,
+          right: 25
         },
         mergeSameCreditors: true,
         creditor: {
@@ -120,25 +120,28 @@ export class ProjectService {
           country: 'CH'
         },
         logo: {
-          height: 30,
-          width: 30,
-          location: 'right',
+          height: 32,
+          width: 32,
+          location: 'left',
           src: `${location.protocol}//${location.host}/assets/icons/icon-512x512.png`,
-          correctionX: 2.9,
-          correctionY: 2.9
+          correctionX: 0,
+          correctionY: 2.8
         },
-        headingLocation: 'left',
-        headingSize: 9,
+        headingLocation: 'logo_left',
+        headingSize: 8,
         customHeading: [
           { insert: 'Firma Muster', attributes: { bold: true } },
-          { insert: '\nMax Muster\nMusterstrasse 35\n6000 Luzern' }
+          {
+            insert:
+              '\nMax Muster\nMusterstrasse 35\n6000 Luzern\n\nwww.firmamuster.ch\n+41 12 345 67 89\nmail@firmamuster.ch'
+          }
         ],
         addressLocation: 'right',
         showSenderAddress: true,
         addressSize: 10,
         dateFormat: 'long',
         place: 'Luzern',
-        title: 'Rechnung für Produkt 25 an {Spitzname ?: Vorname}',
+        title: 'Rechnung für Produkt 25 an {[Spitzname ?: Vorname]}',
         titleSize: 11,
         textSize: 10,
         textBeforeTable: [
@@ -178,7 +181,7 @@ export class ProjectService {
             ],
             positions: [
               {
-                designation: 'Produkt 25',
+                designation: 'Produkt 25 {Spitzname ?: Vorname}',
                 count: '2',
                 amount: '100'
               },
@@ -191,19 +194,19 @@ export class ProjectService {
         ],
         tableTemplate: {
           header: {
-            size: 8,
+            size: 10,
             bold: true,
             italic: false,
             background: '#c8c8c8'
           },
           body: {
-            size: 8,
+            size: 10,
             bold: false,
             italic: false,
             background: '#ffffff'
           },
           footer: {
-            size: 8,
+            size: 10,
             bold: true,
             italic: false,
             background: '#e0e0e0'
@@ -217,7 +220,8 @@ export class ProjectService {
           striped: true,
           showFooter: true,
           showPositionNr: true,
-          showLines: false
+          showLines: false,
+          designation: 'Bezeichnung'
         },
         textAfterTable: [
           {
@@ -228,9 +232,11 @@ export class ProjectService {
             insert: ' Tagen.\n\nFreundliche Grüsse\n\n'
           },
           { insert: 'Max Muster', attributes: { bold: true } },
-          { insert: '\nGeschäftsleiter Firma Muster' }
+          {
+            insert: '\nGeschäftsleiter Firma Muster'
+          }
         ],
-        message: 'Produkt 25 {Nachname} {Vorname}'
+        message: 'Produkt 25 {Nachname} {[Vorname]}'
       }
     };
   }

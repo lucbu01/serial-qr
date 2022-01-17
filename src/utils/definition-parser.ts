@@ -1,6 +1,6 @@
 import { KeyValue, Operation } from './data';
 
-export function parseOperationssDefinition(
+export function parseOperationsDefinition(
   definition: Operation[],
   line: KeyValue<string>
 ) {
@@ -10,6 +10,28 @@ export function parseOperationssDefinition(
       output.push({
         ...operation,
         insert: parseDefinition(operation.insert as string, line, false)
+      });
+    } else {
+      output.push({ ...operation });
+    }
+  });
+  return output;
+}
+
+export function parseMultilineOperationsDefinition(
+  definition: Operation[],
+  lines: KeyValue<string>[]
+) {
+  const output: Operation[] = [];
+  definition.forEach((operation) => {
+    if (operation.insert) {
+      output.push({
+        ...operation,
+        insert: parseMultilineDefinition(
+          operation.insert as string,
+          lines,
+          false
+        )
       });
     } else {
       output.push({ ...operation });
@@ -29,6 +51,28 @@ export function parseNumberDefinition(
   }
 }
 
+export function parseMultilineDefinition(
+  definition: string,
+  lines: KeyValue<string>[],
+  trim = true
+) {
+  return parseDefinition(definition, lines[0], trim).replace(
+    /\{\[([^;}\]]+)(?:;([^;}\]]*)(?:;([^;}\]]*))?)?]}/g,
+    (_substring, propertyDef, join, joinLast) => {
+      const properties = lines.map((line) =>
+        extractProperty(propertyDef, line)
+      );
+      if (properties.length > 1) {
+        return `${properties.slice(0, -1).join(join ? join : ', ')}${
+          joinLast ? joinLast : ' & '
+        }${properties.slice(-1)}`;
+      } else {
+        return properties[0];
+      }
+    }
+  );
+}
+
 export function parseDefinition(
   definition: string,
   line: KeyValue<string>,
@@ -37,21 +81,21 @@ export function parseDefinition(
   if (trim) {
     definition = definition.trim();
   }
-  return definition.replace(/\{([^}]+)\}/g, (_substring, propertyDef) =>
+  return definition.replace(/\{([^[\]}]+)\}/g, (_substring, propertyDef) =>
     extractProperty(propertyDef, line)
   );
 }
 
-function extractProperty(propertyDef: string, member: KeyValue<string>): any {
+function extractProperty(propertyDef: string, line: KeyValue<string>): any {
   if (/.+\?:.+/.test(propertyDef)) {
     const res = /(.+)\?:(.+)/.exec(propertyDef);
     if (res) {
-      return oneOrOther(res[1].trim(), res[2].trim(), member);
+      return oneOrOther(res[1].trim(), res[2].trim(), line);
     } else {
-      return member[propertyDef.trim()];
+      return line[propertyDef.trim()];
     }
   } else {
-    return member[propertyDef.trim()];
+    return line[propertyDef.trim()];
   }
 }
 

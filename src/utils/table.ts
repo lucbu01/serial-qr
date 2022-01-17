@@ -19,7 +19,7 @@ function getColumns(options: SerialQROptions, invoice: Invoice) {
     columns.push({ header: 'Pos.', dataKey: 'position' });
   }
   columns.push({
-    header: 'Bezeichnung',
+    header: options.tableTemplate.designation,
     dataKey: 'designation'
   });
   if (hasCount) {
@@ -87,13 +87,14 @@ export function drawInvoiceTable(
   const body = getBody(invoice);
   let table: Table | undefined = undefined;
   autoTable(doc, {
+    theme: options.tableTemplate.striped ? 'striped' : 'plain',
     columns,
     body,
     startY: y,
     styles: {
       textColor: '#000000',
       halign: 'right',
-      lineWidth: 0
+      cellPadding: options.tableTemplate.padding
     },
     columnStyles: {
       position: { halign: 'left', cellWidth: 15 },
@@ -123,7 +124,7 @@ export function drawInvoiceTable(
     }
   });
   if (table && (table as Table).finalY) {
-    return ((table as Table).finalY as number) + 5;
+    return ((table as Table).finalY as number) + 6;
   }
   return y;
 }

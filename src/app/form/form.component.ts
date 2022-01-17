@@ -15,7 +15,6 @@ export class FormComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
   files: File[] = [];
   dataKeys: string[] = [];
-  loaded = false;
 
   get showView() {
     return this.projectService.showEdit;
@@ -52,7 +51,6 @@ export class FormComponent implements OnInit, OnDestroy {
         });
       }
     });
-    setTimeout(() => (this.loaded = true));
   }
 
   dataKeyClicked(value: string) {
@@ -125,6 +123,11 @@ export class FormComponent implements OnInit, OnDestroy {
         }
       });
     }
+    this.project.options.dataFiles = this.project.options.dataFiles.slice(
+      0,
+      size
+    );
+    this.init();
     this.messageService.add({
       severity: 'success',
       summary: 'Daten geladen',
