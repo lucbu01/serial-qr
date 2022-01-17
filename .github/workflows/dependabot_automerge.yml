@@ -1,0 +1,17 @@
+name: 'Dependabot auto-merge'
+
+on:
+  workflow_run:
+    workflows: ['check pull request']
+    types: [completed]
+
+jobs:
+  dependabot:
+    runs-on: ubuntu-latest
+    if: ${{ github.actor == 'dependabot[bot]' && github.event.workflow_run.conclusion == 'success' }}
+    steps:
+      - name: Merge dependabot pull request  
+        uses: ridedott/merge-me-action@v2
+        with:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          PRESET: DEPENDABOT_MINOR
