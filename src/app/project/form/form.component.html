@@ -454,6 +454,18 @@
     <div class="element">
       <h3>Rechnung</h3>
       <p class="p-field p-fluid">
+        <label for="document-format">Dokument Format *</label>
+        <p-dropdown
+          [options]="[
+            { label: 'Perforiertes Papier', value: 'paper' },
+            { label: 'PDF', value: 'pdf' }
+          ]"
+          [required]="true"
+          [(ngModel)]="project.options.print"
+          inputId="document-format"
+        ></p-dropdown>
+      </p>
+      <p class="p-field p-fluid">
         <label for="cell-padding-top">Einrückung Zelle oben *</label>
         <p-inputNumber
           [required]="true"

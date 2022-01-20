@@ -8,7 +8,7 @@ import {
   QRInvoiceTranslation,
   SerialQROptions
 } from './data';
-import { swisscross } from './svg';
+import { scissors, scissorsRotated, swisscross } from './svg';
 import { A4, couvertFormats, ptToMm } from './units';
 import {
   formatAddress,
@@ -48,9 +48,25 @@ export async function drawQrCode(doc: jsPDF, data: QrInvoiceData) {
   await addSvg(doc, swisscross, 86.5, A4.height - 68.5, 7, 7);
 }
 
-export async function drawQrInvoice(doc: jsPDF, data: QrInvoiceData) {
+export async function drawQrInvoice(
+  doc: jsPDF,
+  data: QrInvoiceData,
+  drawScissors: boolean
+) {
   const lineHeightFactor = doc.getLineHeightFactor();
   data.creditor.iban = data.creditor.iban.replace(' ', '');
+  if (drawScissors) {
+    const oldColor = doc.getDrawColor();
+    doc.setDrawColor('#000000');
+    doc.setLineDashPattern([1], 0.5);
+    doc.setLineWidth(ptToMm(1));
+    doc.line(0, A4.height - 105, A4.width, A4.height - 105);
+    await addSvg(doc, scissors, 7, A4.height - 106.8, 6, 3.6);
+    doc.line(62, A4.height - 105, 62, A4.height);
+    await addSvg(doc, scissorsRotated, 60.2, A4.height - 16, 3.6, 6);
+    doc.setLineDashPattern([], 0);
+    doc.setDrawColor(oldColor);
+  }
   await drawQrCode(doc, data);
   doc.setFont('Helvetica', 'normal', 'bold').setFontSize(11);
   doc.text(lang.receipt, 5, A4.height - 100 + ptToMm(11));
@@ -394,17 +410,21 @@ export async function drawInvoice(
     actualY = (await drawHeading(doc, options, invoice)).y;
   }
 
-  await drawQrInvoice(doc, {
-    creditor: options.creditor,
-    debtor: invoice.debtor,
-    currency: 'CHF',
-    refTyp: 'NON',
-    amount: invoice.toalAmount,
-    message: invoice.message /*,
+  await drawQrInvoice(
+    doc,
+    {
+      creditor: options.creditor,
+      debtor: invoice.debtor,
+      currency: 'CHF',
+      refTyp: 'NON',
+      amount: invoice.toalAmount,
+      message: invoice.message /*,
     invoiceInformation:
       '//S1/10/10201409/11/170309/20/14000000/30/106017086/31/210122',
     reference: 'RF18539007547034'*/
-  });
+    },
+    options.print === 'pdf'
+  );
 
   if (index < invoices.length - 1) {
     doc.addPage().setPage(doc.internal.pages.length - 1);
