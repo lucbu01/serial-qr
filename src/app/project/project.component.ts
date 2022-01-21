@@ -5,6 +5,7 @@ import { MenuItem } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { generateFull } from 'src/utils/pdf';
 import { ProjectService } from '../services/project.service';
+import { ShortcutService } from '../services/shortcut.service';
 
 @Component({
   selector: 'qr-project',
@@ -39,7 +40,8 @@ export class ProjectComponent implements OnInit, OnDestroy {
     private projectService: ProjectService,
     private route: ActivatedRoute,
     private router: Router,
-    private breakpointObserver: BreakpointObserver
+    private breakpointObserver: BreakpointObserver,
+    private shortcut: ShortcutService
   ) {}
 
   public installPWA() {
@@ -84,7 +86,10 @@ export class ProjectComponent implements OnInit, OnDestroy {
           this.mobile = value.matches;
           this.projectService.showEdit = !this.mobile && this.viewEnabled;
           this.updateMenubar();
-        })
+        }),
+      this.shortcut.get('control', 's').subscribe(() => this.save()),
+      this.shortcut.get('control', 'r').subscribe(() => this.regenerate()),
+      this.shortcut.get('control', 'shift', 'r').subscribe(() => this.reload())
     );
   }
 
@@ -107,31 +112,16 @@ export class ProjectComponent implements OnInit, OnDestroy {
     await generateFull(this.projectService.activeProject.options, true);
   }
 
-  @HostListener('document:keydown.control.s')
-  save(e?: Event) {
-    if (e) {
-      e.preventDefault();
-    }
+  save() {
     this.projectService.save();
-    return false;
   }
 
-  @HostListener('document:keydown.control.shift.r')
-  reload(e?: Event) {
-    if (e) {
-      e.preventDefault();
-    }
+  reload() {
     this.projectService.open(this.projectService.activeProject.id, false);
-    return false;
   }
 
-  @HostListener('document:keydown.control.r')
-  regenerate(e?: Event) {
-    if (e) {
-      e.preventDefault();
-    }
+  regenerate() {
     this.projectService.regenerate();
-    return false;
   }
 
   updateMenubar() {

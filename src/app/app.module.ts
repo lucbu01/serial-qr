@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { FallbackComponent } from './fallback/fallback.component';
 import { AppRoutingModule } from './app-routing.module';
 import { ProjectService } from './services/project.service';
+import { ShortcutService } from './services/shortcut.service';
 
 @NgModule({
   declarations: [AppComponent, FallbackComponent],
@@ -26,7 +27,7 @@ import { ProjectService } from './services/project.service';
     }),
     ToastModule
   ],
-  providers: [MessageService, ProjectService],
+  providers: [MessageService, ProjectService, ShortcutService],
   bootstrap: [AppComponent]
 })
 export class AppModule {}
