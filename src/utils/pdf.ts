@@ -8,7 +8,7 @@ import {
   QRInvoiceTranslation,
   SerialQROptions
 } from './data';
-import { scissors, scissorsRotated, swisscross } from './svg';
+import { scissors, swisscross } from './svg';
 import { A4, couvertFormats, ptToMm } from './units';
 import {
   formatAddress,
@@ -59,11 +59,11 @@ export async function drawQrInvoice(
     const oldColor = doc.getDrawColor();
     doc.setDrawColor('#000000');
     doc.setLineDashPattern([1], 0.5);
-    doc.setLineWidth(ptToMm(1));
+    doc.setLineWidth(ptToMm(0.5));
     doc.line(0, A4.height - 105, A4.width, A4.height - 105);
-    await addSvg(doc, scissors, 7, A4.height - 106.8, 6, 3.6);
+    await addSvg(doc, scissors(), 7, A4.height - 106.8, 6, 3.6);
     doc.line(62, A4.height - 105, 62, A4.height);
-    await addSvg(doc, scissorsRotated, 60.2, A4.height - 16, 3.6, 6);
+    await addSvg(doc, scissors(true), 60.2, A4.height - 16, 3.6, 6);
     doc.setLineDashPattern([], 0);
     doc.setDrawColor(oldColor);
   }

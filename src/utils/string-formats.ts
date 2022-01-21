@@ -1,5 +1,5 @@
 import { Debtor, QrInvoiceData } from './data';
-import QRCode from 'qrcode';
+import QRCode from 'qrcode-svg';
 import { mmToPx } from './units';
 
 export function trimOrEmptyString(value?: string | number) {
@@ -45,14 +45,18 @@ ${trimOrEmptyString(data.message)}
 EPD\n\n\n`;
 }
 
-export async function getQrCodeSvgString(data: QrInvoiceData) {
+export function getQrCodeSvgString(data: QrInvoiceData) {
   const invoiceData = formatInvoiceData(data);
-  return await QRCode.toString(invoiceData, {
-    type: 'svg',
-    margin: 0,
-    errorCorrectionLevel: 'M',
-    width: mmToPx(46)
-  });
+  return new QRCode({
+    xmlDeclaration: false,
+    content: invoiceData,
+    padding: 0,
+    ecl: 'M',
+    join: true,
+    width: mmToPx(46),
+    height: mmToPx(46),
+    container: 'svg-viewbox'
+  }).svg();
 }
 
 export function formatAddress(address: Debtor) {

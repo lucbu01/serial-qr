@@ -24,7 +24,7 @@
               "path": "./custom-webpack.config.js"
             },
             "allowedCommonJsDependencies": [
-              "qrcode",
+              "qrcode-svg",
               "jspdf-autotable",
               "xlsx"
             ],

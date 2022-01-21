@@ -31,6 +31,7 @@ export class ViewComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.pdf = undefined;
     this.subscriptions.push(
       this.projectService.regenerateEvent.subscribe(async () =>
         this.generate()
