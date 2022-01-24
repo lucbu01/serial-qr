@@ -1,0 +1,36 @@
+<div class="table">
+  <p-table
+    [value]="metadata"
+    [selectionMode]="selectionMode"
+    [(selection)]="selectedMetadata"
+  >
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="width: 3rem">
+          <p-tableHeaderCheckbox
+            *ngIf="selectionMode === 'multiple'"
+          ></p-tableHeaderCheckbox>
+        </th>
+        <th>Name</th>
+        <th></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-metadata let-rowIndex>
+      <tr [pSelectableRow]="metadata" [pSelectableRowIndex]="rowIndex">
+        <td style="width: 3rem">
+          <p-tableCheckbox [value]="metadata"></p-tableCheckbox>
+        </td>
+        <td>{{ metadata.name }}</td>
+        <td></td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
+<div class="button">
+  <button
+    pButton
+    [label]="buttonText"
+    (click)="select()"
+    [disabled]="invalid()"
+  ></button>
+</div>

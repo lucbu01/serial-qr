@@ -88,8 +88,15 @@ export class ProjectComponent implements OnInit, OnDestroy {
           this.projectService.showEdit = !this.mobile && this.viewEnabled;
           this.updateMenubar();
         }),
-      this.shortcut.get('control', 's').subscribe(() => this.save()),
-      this.shortcut.get('control', 'r').subscribe(() => this.regenerate()),
+      this.shortcut
+        .get('control', 's')
+        .subscribe(() => this.projectService.save()),
+      this.shortcut
+        .get('control', 'shift', 's')
+        .subscribe(() => this.projectService.saveCopy()),
+      this.shortcut
+        .get('control', 'r')
+        .subscribe(() => this.projectService.regenerate()),
       this.shortcut.get('control', 'shift', 'r').subscribe(() => this.reload())
     );
   }
@@ -113,16 +120,8 @@ export class ProjectComponent implements OnInit, OnDestroy {
     await generateFull(this.projectService.activeProject.options, true);
   }
 
-  save() {
-    this.projectService.save();
-  }
-
   reload() {
     this.projectService.open(this.projectService.activeProject.id, false);
-  }
-
-  regenerate() {
-    this.projectService.regenerate();
   }
 
   updateTitle() {
@@ -154,14 +153,31 @@ export class ProjectComponent implements OnInit, OnDestroy {
             label: 'Speichern',
             command: () => this.projectService.save()
           },
-          { icon: 'material-icons save_as', label: 'Speichern unter' },
+          {
+            icon: 'material-icons save_as',
+            label: 'Kopie speichern',
+            command: () => this.projectService.saveCopy()
+          },
           {
             icon: 'material-icons drive_file_rename_outline',
-            label: 'Umbenennen'
+            label: 'Umbenennen',
+            command: () => this.projectService.rename()
           },
-          { icon: 'material-icons delete', label: 'Löschen' },
-          { icon: 'material-icons folder_open', label: 'Öffnen' },
-          { icon: 'material-icons note_add', label: 'Neu' },
+          {
+            icon: 'material-icons delete',
+            label: 'Löschen',
+            command: () => this.projectService.delete()
+          },
+          {
+            icon: 'material-icons folder_open',
+            label: 'Öffnen',
+            command: () => this.projectService.openExisting()
+          },
+          {
+            icon: 'material-icons note_add',
+            label: 'Neu',
+            command: async () => await this.projectService.createNew()
+          },
           { icon: 'material-icons cloud_download', label: 'Importieren' },
           { icon: 'material-icons cloud_upload', label: 'Exportieren' }
         ]

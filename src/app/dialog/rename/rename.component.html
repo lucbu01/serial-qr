@@ -1,0 +1,34 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+  <div class="p-inputgroup">
+    <span class="p-float-label">
+      <input pInputText formControlName="name" itemid="name" autofocus />
+      <label for="name">Projekt Name *</label>
+    </span>
+    <button
+      type="submit"
+      pButton
+      icon="pi pi-check"
+      [disabled]="form.invalid"
+    ></button>
+  </div>
+  <small
+    id="name-error"
+    *ngIf="form.controls['name'].errors"
+    class="p-error block"
+  >
+    <span
+      *ngIf="
+        form.controls['name'].errors['pattern'] ||
+        form.controls['name'].errors['required']
+      "
+    >
+      Der Name darf nicht leer sein
+    </span>
+    <span *ngIf="form.controls['name'].errors['maxlength']">
+      Der Name darf nicht länger als 50 Zeichen sein
+    </span>
+    <span *ngIf="form.controls['name'].errors['alreadyExists']">
+      Dieser Name existiert schon
+    </span>
+  </small>
+</form>

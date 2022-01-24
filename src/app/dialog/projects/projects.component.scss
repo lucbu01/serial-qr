@@ -1,0 +1,10 @@
+.table {
+  width: 800px;
+  max-width: calc(100vw - 50px);
+}
+
+.button {
+  margin-top: 10px;
+  display: flex;
+  flex-direction: row-reverse;
+}
