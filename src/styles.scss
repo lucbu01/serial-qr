@@ -87,4 +87,7 @@ body {
   &.info:after {
     content: 'info';
   }
+  &.home:after {
+    content: 'home';
+  }
 }

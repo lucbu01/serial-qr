@@ -30,7 +30,7 @@ jobs:
       - name: Yarn Install
         run: yarn install
       - name: Build App
-        run: npm run build
+        run: npm run build:prod
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
       - name: Login to DockerHub

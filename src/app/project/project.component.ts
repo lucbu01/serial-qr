@@ -64,6 +64,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.subscriptions.push(
+      this.projectService.onLoaded.subscribe(() => this.updateTitle()),
       this.route.params.subscribe((params) => this.init(params['id'])),
       this.router.events.subscribe((event) => {
         if (event instanceof NavigationEnd) {
@@ -124,7 +125,20 @@ export class ProjectComponent implements OnInit, OnDestroy {
     this.projectService.regenerate();
   }
 
+  updateTitle() {
+    if (this.projectService.loaded) {
+      document.title = `${this.projectService.activeProject.metadata.name} - ${
+        this.router.url.endsWith('/edit')
+          ? 'Bearbeiten'
+          : this.router.url.endsWith('/preview')
+          ? 'Vorschau'
+          : 'Ansicht'
+      } - SerialQR`;
+    }
+  }
+
   updateMenubar() {
+    this.updateTitle();
     this.items = [
       {
         icon: 'material-icons folder',
@@ -181,6 +195,12 @@ export class ProjectComponent implements OnInit, OnDestroy {
       }
     ];
     this.rightItems = [
+      {
+        icon: 'material-icons info',
+        tooltip: 'Anleitungen, Hilfe & Infos',
+        command: () => this.router.navigate(['/info']),
+        visible: true
+      },
       {
         icon: 'material-icons file_download',
         tooltip: 'Generieren und Herunterladen',

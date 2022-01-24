@@ -1,0 +1,36 @@
+main {
+  width: 100%;
+  padding: 10px;
+  background-color: var(--surface-200);
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+
+  th {
+    text-align: left;
+    padding-right: 10px;
+  }
+
+  .info-content {
+    width: 100%;
+    max-width: 1200px;
+    padding: 10px;
+
+    &.shortcuts {
+      mark {
+        background-color: black;
+        color: white;
+        padding: 0 4px;
+      }
+
+      span {
+        margin: 0 5px;
+      }
+
+      th {
+        font-weight: normal;
+        padding-right: 20px;
+      }
+    }
+  }
+}

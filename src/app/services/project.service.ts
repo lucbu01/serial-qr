@@ -14,6 +14,7 @@ export class ProjectService {
   readonly regenerateEvent: Subject<void> = new Subject();
   readonly onLoaded: ReplaySubject<SerialQRProject> = new ReplaySubject();
   showEdit = false;
+  loaded = false;
 
   metadata: SerialQrProjectMetadata[] = [];
 
@@ -77,6 +78,7 @@ export class ProjectService {
     }
     localStorage.setItem('serialqr.lastviewed', `${id}`);
     this.regenerate();
+    this.loaded = true;
     this.onLoaded.next(this.activeProject);
     if (redirect) {
       this.router.navigate(['project', id, 'edit']);

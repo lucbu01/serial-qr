@@ -1,1 +1,123 @@
-<p>Hier kommt die zukünftige Dokumentation!</p>
+<main>
+  <img class="logo" src="/assets/icons/icon-152x152.png" />
+  <h1>SerialQR</h1>
+  <h3>Anleitungen, Hilfe & Infos</h3>
+  <p-card class="info-content" header="App Info" id="appinfo">
+    <table>
+      <tr>
+        <th>Version:</th>
+        <td>{{ version }}</td>
+      </tr>
+      <tr>
+        <th>Erstellt am:</th>
+        <td>{{ timestamp }}</td>
+      </tr>
+      <tr>
+        <th>Author:</th>
+        <td>Luca Bucher</td>
+      </tr>
+      <tr>
+        <th>Kontakt:</th>
+        <td><a href="mailto:info@lucbu.ch">info@lucbu.ch</a></td>
+      </tr>
+      <tr>
+        <th>Sourcecode:</th>
+        <td>
+          <a href="https://github.com/lucbu01/serial-qr"
+            >GitHub (Open Source)</a
+          >
+        </td>
+      </tr>
+    </table>
+  </p-card>
+  <p-card class="info-content" header="Datenschutz & Speicherort" id="privacy">
+    <div>
+      Daten von & über Rechnungen möchte man nicht gerne einfach überall
+      hinsenden, das verstehen wir. SerialQR speichert deshalb keinerlei Daten
+      auf dem Server. Es werden auch keine Daten von dir an den Server gesendet.
+      Dieser hat einzig und alleine die Aufgabe, dir die App zur verfügung zu
+      stellen. Du glaubst es nicht? Entferne die Internetverbindung von deinem
+      Gerät und versuche ein Projekt mit SerialQR zu erstellen und zu
+      bearbeiten, du wirst sehen, dass es wunderbar funktioniert. Du darfst dich
+      auch gerne selber davon im Programmcode überzeugen, dieser Steht auf
+      <a href="https://github.com/lucbu01/serial-qr">GitHub</a>
+      zur Verfügung.
+    </div>
+    <h3>Du bist verantwortlich</h3>
+    <div>
+      Wenn du ein Projekt speicherst, werden die Daten in deinem Browser
+      gespeichert und nicht bei SerialQR. Deswegen musst du dich auch nirgends
+      anmelden und kannst die App gleich verwenden. Aber Achtung! Wenn du deine
+      Browserdaten löschst, den Computer oder den Browser wechselst, gehen die
+      Daten von deinen SerialQR Projekten auch verloren. Deswegen kannst du
+      diese über die Funktion <b>Projekt -> Exportieren</b> in einer Datei
+      speichern und diese an einem anderen Ort mit
+      <b>Projekt -> Importieren</b> wieder importieren (diese Funktion kommt
+      bald).
+    </div>
+    <h3>Offline verfügbar</h3>
+    <div>
+      Wenn du den Chrome oder den Edge Browser benutzt, kannst du SerialQR auch
+      wie eine normale App installieren.
+      <a href="https://support.google.com/chrome/answer/9658361">Hier</a>
+      erfährst du, wie das geht, es ist ganz einfach ;-)
+    </div>
+  </p-card>
+  <p-card class="info-content" header="Anleitungen" id="instructions">
+    Kommt bald . . .
+  </p-card>
+  <p-card
+    class="info-content shortcuts"
+    header="Tastenkombinationen"
+    id="shortcuts"
+  >
+    <table>
+      <tr>
+        <th><mark>CTRL</mark><span>+</span><mark>S</mark></th>
+        <td>Projekt speichern</td>
+      </tr>
+      <tr>
+        <th><mark>CTRL</mark><span>+</span><mark>R</mark></th>
+        <td>Neu generieren</td>
+      </tr>
+      <tr>
+        <th>
+          <mark>CTRL</mark><span>+</span><mark>SHIFT</mark><span>+</span
+          ><mark>R</mark>
+        </th>
+        <td>
+          Projekt neu laden (Nicht gespeicherte Änderungen gehen verloren)
+        </td>
+      </tr>
+    </table>
+    <br />
+    Weitere folgen . . .
+  </p-card>
+  <p-card class="info-content" header="Probleme mit der App?" id="problems">
+    Solltest du irgendwelche Probleme mit der App haben, darfst du dich
+    selbstverständlich gerne via <a href="mailto:info@lucbu.ch">E-Mail</a> an
+    mich wenden. Auch Verbesserungsvorschläge und Wünsche für neue Funktionen
+    werden angeschaut. Bedenke aber, dass dies ein Hobby-Projekt von mir ist und
+    ich keine 24h-Hotline betreibe. Deshalb kann es auch etwas länger dauern,
+    bis du eine Antwort von mir bekommst.
+  </p-card>
+  <p-card class="info-content" header="Pläne für die Zukunft" id="roadmap">
+    Ich entwickle das Projekt gerne weiter und bin auch offen für Vorschläge von
+    dir. Hier findest du einen kleinen Überblick, was ich noch alles vorhabe. Ob
+    und wann es diese Funktionen gibt, ist aber nicht klar:
+    <ul>
+      <li>Serien-Mailversand von generierten PDF-Rechnungen pro Kreditor</li>
+      <li>Weitere (optionale) Einstellungsmöglichkeiten für's Generieren</li>
+      <li>i18n - Mehrsprachigkeit: EN, FR & IT (bis jetzt nur Deutsch)</li>
+      <li>Validierungsfunktionen um Fehler zu minimieren</li>
+    </ul>
+  </p-card>
+</main>
+<div style="position: fixed; top: 10px; left: 10px">
+  <p-button
+    icon="material-icons home"
+    class="p-button-outlined"
+    routerLink="/"
+    label="Zur App"
+  ></p-button>
+</div>

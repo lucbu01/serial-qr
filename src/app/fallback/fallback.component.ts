@@ -10,6 +10,6 @@ export class FallbackComponent implements AfterViewInit {
   constructor(private projectService: ProjectService) {}
 
   ngAfterViewInit(): void {
-    setTimeout(() => this.projectService.openLastViewed());
+    this.projectService.openLastViewed();
   }
 }

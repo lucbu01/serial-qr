@@ -29,4 +29,4 @@ jobs:
         with:
           cmd: install
       - name: Build App
-        run: npm run build
+        run: npm run build:prod
