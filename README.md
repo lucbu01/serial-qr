@@ -27,7 +27,7 @@ With SerialQR you are able to write serial invoices which which includes the swi
 
 This project is currently under development and not all features are working yet.
 
-[Try it out](https://qr.lucbu.ch)
+[Try it out](https://serialqr.ch)
 
 [Pull it on docker](https://hub.docker.com/r/lucbu01/serial-qr)
 
