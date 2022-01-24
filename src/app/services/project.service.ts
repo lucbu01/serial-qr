@@ -59,8 +59,9 @@ export class ProjectService {
       .open(ProjectsComponent, {
         header: 'Projekt wählen',
         data: {
-          delete: () => this.delete(),
-          rename: () => this.rename(),
+          delete: (metadata: SerialQrProjectMetadata) => this.delete(metadata),
+          rename: (metadata: SerialQrProjectMetadata) =>
+            this.rename('Umbenennen', metadata),
           selectionMode: 'single',
           buttonText: 'Öffnen'
         }
@@ -77,20 +78,30 @@ export class ProjectService {
     this.rename('Name wählen');
   }
 
-  delete() {
+  async delete(metadata?: SerialQrProjectMetadata) {
+    let project = this.activeProject;
+    if (metadata && metadata.id) {
+      const found = await db.projects.get(metadata.id);
+      if (!found) {
+        return;
+      }
+      project = found;
+    }
     this.confirm.confirm({
       header: 'Projekt löschen?',
-      message: `Bist du sicher, dass du das Projekt "${this.activeProject.metadata.name}" löschen willst?<br>Dieser Vorgang kann nicht rückgängig gemacht werden!`,
+      message: `Bist du sicher, dass du das Projekt "${project.metadata.name}" löschen willst?<br>Dieser Vorgang kann nicht rückgängig gemacht werden!`,
       accept: async () => {
-        const id = this.activeProject.id;
-        const metadata = await db.metadata
-          .where('id')
-          .notEqual(this.activeProject.id)
-          .last();
-        if (metadata && metadata.id) {
-          await this.open(metadata.id, true);
-        } else {
-          await this.open(-1, true);
+        const id = project.id;
+        if (id === this.activeProject.id) {
+          const metadata = await db.metadata
+            .where('id')
+            .notEqual(project.id)
+            .last();
+          if (metadata && metadata.id) {
+            await this.open(metadata.id, true);
+          } else {
+            await this.open(-1, true);
+          }
         }
         db.projects.delete(id);
         db.metadata.delete(id);
@@ -98,21 +109,28 @@ export class ProjectService {
     });
   }
 
-  rename(header = 'Umbenennen') {
+  async rename(header = 'Umbenennen', metadata?: SerialQrProjectMetadata) {
+    let project = this.activeProject;
+    if (metadata && metadata.id) {
+      const found = await db.projects.get(metadata.id);
+      if (!found) {
+        return;
+      }
+      project = found;
+    }
     this.dialog
       .open(RenameComponent, {
         header,
-        data: this.activeProject.metadata
+        data: project.metadata
       })
       .onClose.subscribe(async (result) => {
         if (result) {
-          this.activeProject.metadata.name = result;
-          await db.metadata.update(
-            this.activeProject.id,
-            this.activeProject.metadata
-          );
-          await db.projects.update(this.activeProject.id, this.activeProject);
-          this.onLoaded.next(this.activeProject);
+          project.metadata.name = result;
+          await db.metadata.update(project.id, project.metadata);
+          await db.projects.update(project.id, project);
+          if (project.id === this.activeProject.id) {
+            this.onLoaded.next(this.activeProject);
+          }
         }
       });
   }

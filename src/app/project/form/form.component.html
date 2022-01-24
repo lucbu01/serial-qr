@@ -202,7 +202,6 @@
         </p>
         <p class="p-field p-fluid p-float-label">
           <p-inputNumber
-            [required]="true"
             [(ngModel)]="project.options.logo.correctionX"
             inputId="logo-correction-x"
             suffix=" mm"
@@ -212,11 +211,10 @@
             [showButtons]="true"
             [step]="0.1"
           ></p-inputNumber>
-          <label for="logo-correction-x">Verschiebung X *</label>
+          <label for="logo-correction-x">Verschiebung X</label>
         </p>
         <p class="p-field p-fluid p-float-label">
           <p-inputNumber
-            [required]="true"
             [(ngModel)]="project.options.logo.correctionY"
             inputId="logo-correction-y"
             suffix=" mm"
@@ -226,7 +224,7 @@
             [showButtons]="true"
             [step]="0.1"
           ></p-inputNumber>
-          <label for="logo-correction-y">Verschiebung Y *</label>
+          <label for="logo-correction-y">Verschiebung Y</label>
         </p>
         <p class="p-field p-fluid p-float-label">
           <p-dropdown
