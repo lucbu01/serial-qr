@@ -97,7 +97,58 @@ export class ProjectComponent implements OnInit, OnDestroy {
       this.shortcut
         .get('control', 'r')
         .subscribe(() => this.projectService.regenerate()),
-      this.shortcut.get('control', 'shift', 'r').subscribe(() => this.reload())
+      this.shortcut
+        .get('control', 'o')
+        .subscribe(() => this.projectService.openExisting()),
+      this.shortcut
+        .get('control', 'shift', 'e')
+        .subscribe(() => this.projectService.rename()),
+      this.shortcut
+        .get('control', 'insert')
+        .subscribe(() => this.projectService.createNew()),
+      this.shortcut
+        .get('control', 'delete')
+        .subscribe(() => this.projectService.delete()),
+      this.shortcut.get('control', 'shift', 'r').subscribe(() => this.reload()),
+      this.shortcut.get('control', 'd').subscribe(() => this.download()),
+      this.shortcut
+        .get('control', 'i')
+        .subscribe(() => this.router.navigateByUrl('/info')),
+      this.shortcut
+        .get('control', 'h')
+        .subscribe(() => this.router.navigateByUrl('/info')),
+
+      this.shortcut
+        .get('control', 'e')
+        .subscribe(() =>
+          this.router.navigate([
+            'project',
+            this.projectService.activeProject.id,
+            'edit'
+          ])
+        ),
+      this.shortcut
+        .get('control', 'g')
+        .subscribe(() =>
+          this.router.navigate([
+            'project',
+            this.projectService.activeProject.id,
+            'preview'
+          ])
+        ),
+      this.shortcut
+        .get('control', 'shift', 'g')
+        .subscribe(() =>
+          this.router.navigate([
+            'project',
+            this.projectService.activeProject.id,
+            'view'
+          ])
+        ),
+
+      this.shortcut
+        .get('control', 'h')
+        .subscribe(() => this.router.navigateByUrl('/info'))
     );
   }
 
