@@ -1,3 +1,23 @@
+::ng-deep {
+  .p-inputgroup .p-float-label .p-inputtext,
+  .p-inputgroup .p-float-label p-inputmask {
+    width: 100%;
+  }
+
+  .p-card .p-card-content {
+    padding: 0;
+  }
+
+  p-card:not(.last) .p-card {
+    margin-bottom: 10px;
+  }
+}
+
+.p-inputgroup-addon.color-picker {
+  width: 45px;
+  padding: 0 5px;
+}
+
 .options {
   padding: 10px;
   padding-top: 0px;

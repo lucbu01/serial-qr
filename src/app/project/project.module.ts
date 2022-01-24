@@ -3,7 +3,6 @@ import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ProjectService } from '../services/project.service';
 import { ProjectComponent } from './project.component';
 import { EditComponent } from './edit/edit.component';
 import { EditorComponent } from './editor/editor.component';
@@ -32,6 +31,7 @@ import { CheckboxModule } from 'primeng/checkbox';
 import { ListboxModule } from 'primeng/listbox';
 import { CalendarModule } from 'primeng/calendar';
 import { ColorPickerModule } from 'primeng/colorpicker';
+import { CardModule } from 'primeng/card';
 
 @NgModule({
   declarations: [
@@ -67,7 +67,8 @@ import { ColorPickerModule } from 'primeng/colorpicker';
     CheckboxModule,
     ListboxModule,
     CalendarModule,
-    ColorPickerModule
+    ColorPickerModule,
+    CardModule
   ],
   providers: []
 })
