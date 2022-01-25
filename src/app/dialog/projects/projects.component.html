@@ -3,25 +3,27 @@
     [value]="metadata"
     [selectionMode]="selectionMode"
     [(selection)]="selectedMetadata"
+    [scrollable]="true"
+    scrollHeight="calc(100vh - 400px)"
   >
     <ng-template pTemplate="header">
       <tr>
-        <th style="width: 3rem">
+        <th style="flex: 0 0 3rem">
           <p-tableHeaderCheckbox
             *ngIf="selectionMode === 'multiple'"
           ></p-tableHeaderCheckbox>
         </th>
         <th>Name</th>
-        <th style="width: 9rem"></th>
+        <th style="flex: 0 0 9rem"></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-metadata let-rowIndex>
       <tr [pSelectableRow]="metadata" [pSelectableRowIndex]="rowIndex">
-        <td style="width: 3rem">
+        <td style="flex: 0 0 3rem">
           <p-tableCheckbox [value]="metadata"></p-tableCheckbox>
         </td>
         <td>{{ metadata.name }}</td>
-        <td>
+        <td style="flex: 0 0 9rem">
           <button
             pButton
             pRipple
