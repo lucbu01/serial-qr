@@ -157,8 +157,12 @@ export class ProjectComponent implements OnInit, OnDestroy {
   }
 
   init(id: any): void {
-    this.updateMenubar();
-    this.projectService.open(id, false);
+    if (id) {
+      this.updateMenubar();
+      this.projectService.open(id, false);
+    } else {
+      this.projectService.openLastViewed();
+    }
   }
 
   toggleView() {
@@ -230,7 +234,11 @@ export class ProjectComponent implements OnInit, OnDestroy {
             command: async () => await this.projectService.createNew()
           },
           { icon: 'material-icons cloud_download', label: 'Importieren' },
-          { icon: 'material-icons cloud_upload', label: 'Exportieren' }
+          {
+            icon: 'material-icons cloud_upload',
+            label: 'Exportieren',
+            command: () => this.projectService.export()
+          }
         ]
       }
     ];

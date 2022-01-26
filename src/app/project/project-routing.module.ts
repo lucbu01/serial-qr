@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { EditComponent } from './edit/edit.component';
-import { FallbackComponent } from '../fallback/fallback.component';
 import { ProjectComponent } from './project.component';
 import { ViewComponent } from './view/view.component';
 
@@ -16,7 +15,7 @@ const routes: Routes = [
       { path: '**', redirectTo: 'edit' }
     ]
   },
-  { path: '**', component: FallbackComponent }
+  { path: '**', component: ProjectComponent }
 ];
 
 @NgModule({

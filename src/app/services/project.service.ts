@@ -8,6 +8,8 @@ import { SerialQRProject, SerialQrProjectMetadata } from 'src/utils/data';
 import { db } from 'src/utils/db';
 import { ProjectsComponent } from '../dialog/projects/projects.component';
 import { RenameComponent } from '../dialog/rename/rename.component';
+import { saveAs } from 'file-saver';
+import { DateTime } from 'luxon';
 
 @Injectable({
   providedIn: 'root'
@@ -211,6 +213,36 @@ export class ProjectService {
           await db.projects.put(this.activeProject, id);
           this.onLoaded.next(this.activeProject);
           this.redirect(id);
+        }
+      });
+  }
+
+  export() {
+    this.dialog
+      .open(ProjectsComponent, {
+        header: 'Projekte exportieren',
+        data: {
+          delete: (metadata: SerialQrProjectMetadata) => this.delete(metadata),
+          rename: (metadata: SerialQrProjectMetadata) =>
+            this.rename('Umbenennen', metadata),
+          selectionMode: 'multiple',
+          buttonText: 'Exportieren'
+        }
+      })
+      .onClose.subscribe(async (result?: SerialQrProjectMetadata[]) => {
+        if (result && result.length > 0) {
+          const ids = result.map((metadata) => (metadata.id ? metadata.id : 0));
+          const projects = await db.projects.where('id').anyOf(ids).toArray();
+          const fileContent = JSON.stringify(projects);
+          const blob = new Blob([fileContent], {
+            type: 'text/plain;charset=utf-8'
+          });
+          saveAs(
+            blob,
+            `SerialQR_Export_${DateTime.now().toFormat(
+              'yyyy-mm-dd-hh-MM-ss'
+            )}.serialqr`
+          );
         }
       });
   }
