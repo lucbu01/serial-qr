@@ -239,9 +239,7 @@ export class ProjectService {
           });
           saveAs(
             blob,
-            `SerialQR_Export_${DateTime.now().toFormat(
-              'yyyy-mm-dd-hh-MM-ss'
-            )}.serialqr`
+            `export-${DateTime.now().toFormat('yyyy-mm-dd-hh-MM-ss')}.serialqr`
           );
         }
       });

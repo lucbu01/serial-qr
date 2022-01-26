@@ -26,6 +26,10 @@ body {
   z-index: 11 !important;
 }
 
+#hidden-h1 {
+  display: none;
+}
+
 .material-icons {
   &.folder:after {
     content: 'folder';
