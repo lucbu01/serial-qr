@@ -1,22 +1,29 @@
-<img src="/assets/icons/icon-152x152.png" />
-<h1>SerialQR - Serienbriefe mit QR-Rechnung</h1>
-<p>
-  Erstelle kostenlos Serienbriefe mit QR-Rechnungen auf Grundlage einer
-  Excel-Liste.
-</p>
-<p class="buttons">
-  <button
-    pButton
-    icon="material-icons home"
-    (click)="app()"
-    class="p-button-outlined p-button-rounded"
-    label="zur App"
-  ></button>
-  <button
-    pButton
-    icon="material-icons info"
-    label="Informationen & Anleitung"
-    routerLink="/info"
-    class="p-button-outlined p-button-rounded p-button-info"
-  ></button>
-</p>
+<div class="logo-container" *ngIf="loading; else overview">
+  <img src="/assets/icons/icon-152x152.png" />
+</div>
+<ng-template #overview>
+  <main>
+    <img src="/assets/icons/icon-152x152.png" />
+    <h1>SerialQR - Serienbriefe mit QR-Rechnung</h1>
+    <p>
+      Erstelle kostenlos Serienbriefe mit QR-Rechnungen auf Grundlage einer
+      Excel-Liste.
+    </p>
+    <p class="buttons">
+      <button
+        pButton
+        icon="material-icons home"
+        (click)="app()"
+        class="p-button-outlined p-button-rounded"
+        label="zur App"
+      ></button>
+      <button
+        pButton
+        icon="material-icons info"
+        label="Informationen & Anleitung"
+        routerLink="/info"
+        class="p-button-outlined p-button-rounded p-button-info"
+      ></button>
+    </p>
+  </main>
+</ng-template>
