@@ -11,6 +11,9 @@ export class FallbackComponent implements OnInit {
 
   ngOnInit(): void {
     document.title = 'SerialQR - Serienbriefe mit QR-Rechnung';
+    if (localStorage.getItem('serialqr.lastviewed')) {
+      this.projectService.openLastViewed();
+    }
   }
 
   app() {
