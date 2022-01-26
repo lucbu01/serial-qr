@@ -14,7 +14,7 @@
           ></p-tableHeaderCheckbox>
         </th>
         <th>Name</th>
-        <th style="flex: 0 0 9rem"></th>
+        <th style="flex: 0 0 9rem" *ngIf="canEdit"></th>
       </tr>
     </ng-template>
     <ng-template pTemplate="body" let-metadata let-rowIndex>
@@ -23,7 +23,7 @@
           <p-tableCheckbox [value]="metadata"></p-tableCheckbox>
         </td>
         <td>{{ metadata.name }}</td>
-        <td style="flex: 0 0 9rem">
+        <td style="flex: 0 0 9rem" *ngIf="canEdit">
           <button
             pButton
             pRipple

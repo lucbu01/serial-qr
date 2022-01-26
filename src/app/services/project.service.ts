@@ -10,6 +10,7 @@ import { ProjectsComponent } from '../dialog/projects/projects.component';
 import { RenameComponent } from '../dialog/rename/rename.component';
 import { saveAs } from 'file-saver';
 import { DateTime } from 'luxon';
+import { readFileAsText } from 'src/utils/file';
 
 @Injectable({
   providedIn: 'root'
@@ -243,6 +244,103 @@ export class ProjectService {
           );
         }
       });
+  }
+
+  import() {
+    const availableInput = document.getElementById(
+      'serialqr-import'
+    ) as HTMLInputElement;
+    const input = availableInput
+      ? availableInput
+      : document.createElement('input');
+    input.id = 'serialqr-import';
+    input.type = 'file';
+    input.accept = '.serialqr';
+    input.style.display = 'none';
+    document.body.appendChild(input);
+    input.click();
+    input.onchange = async (ev) => {
+      const input = ev.target as HTMLInputElement;
+      const file = input.files?.item(0);
+      console.log(file);
+      if (file) {
+        try {
+          const projects = JSON.parse(
+            await readFileAsText(file)
+          ) as SerialQRProject[];
+          const metadata: SerialQrProjectMetadata[] = [];
+          if (Array.isArray(projects)) {
+            projects.forEach((project) => {
+              if (
+                project.serialQRVersion === 1 &&
+                project.metadata &&
+                project.metadata.id &&
+                project.metadata.name
+              ) {
+                metadata.push(project.metadata);
+              }
+            });
+          }
+          this.dialog
+            .open(ProjectsComponent, {
+              header: 'Projekte importieren',
+              data: {
+                delete: (metadata: SerialQrProjectMetadata) =>
+                  this.delete(metadata),
+                rename: (metadata: SerialQrProjectMetadata) =>
+                  this.rename('Umbenennen', metadata),
+                selectionMode: 'multiple',
+                buttonText: 'Importieren',
+                metadata
+              }
+            })
+            .onClose.subscribe(async (result?: SerialQrProjectMetadata[]) => {
+              if (result) {
+                for (const project of projects) {
+                  if (result.includes(project.metadata)) {
+                    const projectName = project.metadata.name;
+                    let numeration = 0;
+                    let retry = false;
+                    do {
+                      const name =
+                        numeration > 0
+                          ? `${projectName} (${numeration})`
+                          : projectName;
+                      const existingProject = await db.metadata
+                        .where('name')
+                        .equals(name)
+                        .first();
+                      if (existingProject) {
+                        retry = true;
+                        numeration++;
+                      } else {
+                        retry = false;
+                        project.metadata.id = undefined;
+                        project.metadata.name = name;
+                        const id = await db.metadata.add(project.metadata);
+                        project.metadata.id = id;
+                        await db.projects.put(project, id);
+                      }
+                    } while (retry);
+                  }
+                }
+                this.messageService.add({
+                  severity: 'success',
+                  summary: 'Projekt/e importiert',
+                  detail: 'Du kannst die neuen Projekte jetzt verwenden!'
+                });
+              }
+            });
+        } catch {
+          this.messageService.add({
+            severity: 'error',
+            summary: 'Importieren fehlgeschlagen',
+            detail: 'Überprüfe die Datei und versuch es noch einmal!'
+          });
+        }
+      }
+      document.body.removeChild(input);
+    };
   }
 
   redirect(id: number) {

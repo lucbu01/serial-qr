@@ -13,6 +13,7 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   metadata: SerialQrProjectMetadata[] = [];
   selectedMetadata?: SerialQrProjectMetadata[] | SerialQrProjectMetadata;
   buttonText: string;
+  canEdit = false;
 
   delete: (metadata: SerialQrProjectMetadata) => void;
   rename: (metadata: SerialQrProjectMetadata) => void;
@@ -26,14 +27,18 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     this.rename = config.data.rename;
     this.selectionMode = config.data.selectionMode;
     this.buttonText = config.data.buttonText;
+    this.metadata = config.data.metadata;
   }
 
   ngOnInit(): void {
-    this.subscriptions.push(
-      liveQuery(() => db.metadata.orderBy('name').toArray()).subscribe(
-        (metadata) => (this.metadata = metadata)
-      )
-    );
+    if (!this.metadata) {
+      this.subscriptions.push(
+        liveQuery(() => db.metadata.orderBy('name').toArray()).subscribe(
+          (metadata) => (this.metadata = metadata)
+        )
+      );
+      this.canEdit = true;
+    }
   }
 
   ngOnDestroy(): void {

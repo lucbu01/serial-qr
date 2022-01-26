@@ -233,7 +233,11 @@ export class ProjectComponent implements OnInit, OnDestroy {
             label: 'Neu',
             command: async () => await this.projectService.createNew()
           },
-          { icon: 'material-icons cloud_download', label: 'Importieren' },
+          {
+            icon: 'material-icons cloud_download',
+            label: 'Importieren',
+            command: () => this.projectService.import()
+          },
           {
             icon: 'material-icons cloud_upload',
             label: 'Exportieren',
