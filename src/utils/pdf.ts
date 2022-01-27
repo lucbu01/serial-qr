@@ -484,7 +484,10 @@ export async function drawLogo(
   return { x: 0, y: 0, width: 0, height: 0 };
 }
 
-export async function generatePreview(options: SerialQROptions) {
+export async function generatePreview(
+  options: SerialQROptions,
+  title = options.title
+) {
   const doc = new jsPDF({
     orientation: 'p',
     format: 'a4',
@@ -499,7 +502,7 @@ export async function generatePreview(options: SerialQROptions) {
   }
 
   doc.setProperties({
-    title: options.title,
+    title,
     author: options.creditor.name,
     creator:
       'SerialQR - ein kostenloses und Werbefreies Tool für das Erstellen von Serienbriefen mit QR Rechnung - serialqr.ch',
@@ -511,7 +514,11 @@ export async function generatePreview(options: SerialQROptions) {
   });
 }
 
-export async function generateFull(options: SerialQROptions, download = false) {
+export async function generateFull(
+  options: SerialQROptions,
+  title = options.title,
+  download = false
+) {
   const doc = new jsPDF({
     orientation: 'p',
     format: 'a4',
@@ -527,7 +534,7 @@ export async function generateFull(options: SerialQROptions, download = false) {
   }
 
   doc.setProperties({
-    title: options.title,
+    title,
     author: options.creditor.name,
     creator:
       'SerialQR - ein kostenloses und Werbefreies Tool für das Erstellen von Serienbriefen mit QR Rechnung - serialqr.ch',

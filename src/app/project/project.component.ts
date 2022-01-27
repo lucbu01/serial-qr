@@ -172,7 +172,11 @@ export class ProjectComponent implements OnInit, OnDestroy {
   }
 
   async download() {
-    await generateFull(this.projectService.activeProject.options, true);
+    await generateFull(
+      this.projectService.activeProject.options,
+      this.projectService.activeProject.metadata.name,
+      true
+    );
   }
 
   reload() {

@@ -54,10 +54,14 @@ export class ViewComponent implements OnInit {
 
   async generate() {
     if (location.href.endsWith('/view')) {
-      this.pdf = await generateFull(this.projectService.activeProject.options);
+      this.pdf = await generateFull(
+        this.projectService.activeProject.options,
+        this.projectService.activeProject.metadata.name
+      );
     } else {
       this.pdf = await generatePreview(
-        this.projectService.activeProject.options
+        this.projectService.activeProject.options,
+        this.projectService.activeProject.metadata.name
       );
     }
   }
