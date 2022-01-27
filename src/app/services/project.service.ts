@@ -206,13 +206,20 @@ export class ProjectService {
       })
       .onClose.subscribe(async (result) => {
         if (result) {
-          this.activeProject.metadata.name = result;
-          this.activeProject.metadata.id = undefined;
-          const id = await db.metadata.add(this.activeProject.metadata);
+          const metadata: SerialQrProjectMetadata = {
+            name: result
+          };
+          const id = await db.metadata.add(metadata);
+          metadata.id = id;
+          const project: SerialQRProject = {
+            ...this.activeProject,
+            id,
+            metadata
+          };
           this.activeProject.metadata.id = id;
           this.activeProject.id = id;
-          await db.projects.put(this.activeProject, id);
-          this.onLoaded.next(this.activeProject);
+          await db.projects.put(project, id);
+          this.onLoaded.next(project);
           this.redirect(id);
         }
       });
