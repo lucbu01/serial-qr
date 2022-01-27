@@ -318,6 +318,7 @@ export class ProjectService {
                         project.metadata.id = undefined;
                         project.metadata.name = name;
                         const id = await db.metadata.add(project.metadata);
+                        project.id = id;
                         project.metadata.id = id;
                         await db.projects.put(project, id);
                       }
