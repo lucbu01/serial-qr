@@ -371,7 +371,7 @@ export async function drawInvoice(
       }
     ],
     options.margin.left,
-    actualY + ptToMm(2 * options.textSize) * doc.getLineHeightFactor(),
+    actualY + ptToMm(3 * options.textSize) * doc.getLineHeightFactor(),
     standardWidth,
     options.textSize
   ).y;
