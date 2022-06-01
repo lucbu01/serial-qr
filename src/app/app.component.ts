@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
+import { NavigationEnd, Router } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
 import { PrimeNGConfig } from 'primeng/api';
+import { filter } from 'rxjs';
+import { environment } from 'src/environments/environment';
+
+declare let gtag: Function;
 
 @Component({
   selector: 'qr-root',
@@ -8,7 +13,11 @@ import { PrimeNGConfig } from 'primeng/api';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  constructor(private primeConfig: PrimeNGConfig, private swUpdate: SwUpdate) {}
+  constructor(
+    private primeConfig: PrimeNGConfig,
+    private swUpdate: SwUpdate,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     this.primeConfig.ripple = true;
@@ -98,5 +107,21 @@ export class AppComponent implements OnInit {
       emptyMessage: 'Keine Resultate vorhanden',
       emptyFilterMessage: 'Keine Resulate gefunden'
     });
+    this.setUpAnalytics();
+  }
+
+  setUpAnalytics() {
+    if (environment.production) {
+      this.router.events
+        .pipe(filter((event) => event instanceof NavigationEnd))
+        .subscribe((event) => {
+          gtag('config', 'G-R44F20TT3N', {
+            page_path: (event as NavigationEnd).urlAfterRedirects.replace(
+              /\/\d+\//,
+              '/'
+            )
+          });
+        });
+    }
   }
 }

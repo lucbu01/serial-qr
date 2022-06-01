@@ -269,7 +269,6 @@ export class ProjectService {
     input.onchange = async (ev) => {
       const input = ev.target as HTMLInputElement;
       const file = input.files?.item(0);
-      console.log(file);
       if (file) {
         try {
           const projects = JSON.parse(
