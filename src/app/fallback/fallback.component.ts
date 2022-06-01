@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { AppService } from '../services/app.service';
 import { ProjectService } from '../services/project.service';
 
 @Component({
@@ -6,9 +8,15 @@ import { ProjectService } from '../services/project.service';
   templateUrl: './fallback.component.html',
   styleUrls: ['./fallback.component.scss']
 })
-export class FallbackComponent implements OnInit {
+export class FallbackComponent implements OnInit, OnDestroy {
+  subscriptions: Subscription[] = [];
   loading = true;
-  constructor(private projectService: ProjectService) {}
+  canInstall = false;
+
+  constructor(
+    private appService: AppService,
+    private projectService: ProjectService
+  ) {}
 
   ngOnInit(): void {
     document.title = 'SerialQR - Serienbriefe mit QR-Rechnung';
@@ -17,6 +25,19 @@ export class FallbackComponent implements OnInit {
     } else {
       this.loading = false;
     }
+    this.subscriptions.push(
+      this.appService.promptEventChange.subscribe(
+        () => (this.canInstall = this.appService.shouldInstall())
+      )
+    );
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((s) => s.unsubscribe());
+  }
+
+  install() {
+    this.appService.installPWA();
   }
 
   app() {

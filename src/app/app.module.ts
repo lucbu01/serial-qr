@@ -20,6 +20,7 @@ import { ProjectService } from './services/project.service';
 import { ShortcutService } from './services/shortcut.service';
 import { RenameComponent } from './dialog/rename/rename.component';
 import { ProjectsComponent } from './dialog/projects/projects.component';
+import { AppService } from './services/app.service';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { ProjectsComponent } from './dialog/projects/projects.component';
     ConfirmationService,
     DialogService,
     ProjectService,
-    ShortcutService
+    ShortcutService,
+    AppService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,9 +1,10 @@
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { Component, HostListener, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, NavigationEnd, Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { Subscription } from 'rxjs';
 import { generateFull } from 'src/utils/pdf';
+import { AppService } from '../services/app.service';
 import { ProjectService } from '../services/project.service';
 import { ShortcutService } from '../services/shortcut.service';
 
@@ -20,23 +21,9 @@ export class ProjectComponent implements OnInit, OnDestroy {
   smallerToolbar = true;
   viewEnabled = true;
   mobile = true;
-  promptEvent?: any;
-
-  @HostListener('window:beforeinstallprompt', ['$event'])
-  onbeforeinstallprompt(e: any) {
-    e.preventDefault();
-    this.promptEvent = e;
-    if (
-      this.shouldInstall() &&
-      !localStorage.getItem('serial-qr.installprompt')
-    ) {
-      localStorage.setItem('serial-qr.installprompt', 'true');
-      // show overlay this.promptEvent.prompt();
-    }
-    this.updateMenubar();
-  }
 
   constructor(
+    private appService: AppService,
     private projectService: ProjectService,
     private route: ActivatedRoute,
     private router: Router,
@@ -44,27 +31,10 @@ export class ProjectComponent implements OnInit, OnDestroy {
     private shortcut: ShortcutService
   ) {}
 
-  public installPWA() {
-    this.promptEvent.prompt();
-    this.promptEvent.userChoice.then((choiceResult: any) => {
-      if (choiceResult.outcome === 'accepted') {
-        this.promptEvent = undefined;
-        this.updateMenubar();
-      }
-    });
-  }
-
-  public shouldInstall(): boolean {
-    return !this.isRunningStandalone() && this.promptEvent !== undefined;
-  }
-
-  public isRunningStandalone(): boolean {
-    return window.matchMedia('(display-mode: standalone)').matches;
-  }
-
   ngOnInit(): void {
     this.subscriptions.push(
       this.projectService.onLoaded.subscribe(() => this.updateTitle()),
+      this.appService.promptEventChange.subscribe(() => this.updateMenubar()),
       this.route.params.subscribe((params) => this.init(params['id'])),
       this.router.events.subscribe((event) => {
         if (event instanceof NavigationEnd) {
@@ -273,8 +243,8 @@ export class ProjectComponent implements OnInit, OnDestroy {
       {
         icon: 'material-icons install_desktop',
         label: 'App installieren',
-        command: () => this.installPWA(),
-        visible: this.shouldInstall()
+        command: () => this.appService.installPWA(),
+        visible: this.appService.shouldInstall()
       }
     ];
     this.rightItems = [

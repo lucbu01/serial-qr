@@ -24,6 +24,14 @@
         routerLink="/info"
         class="p-button-outlined p-button-rounded p-button-info"
       ></button>
+      <button
+        pButton
+        *ngIf="canInstall"
+        icon="material-icons install_desktop"
+        label="App installieren"
+        (click)="install()"
+        class="p-button-outlined p-button-rounded p-button-success"
+      ></button>
     </p>
   </main>
 </ng-template>

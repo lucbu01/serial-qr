@@ -13,7 +13,7 @@
         <td>{{ timestamp }}</td>
       </tr>
       <tr>
-        <th>Author:</th>
+        <th>Autor:</th>
         <td>Luca Bucher</td>
       </tr>
       <tr>
@@ -166,8 +166,15 @@
 <div style="position: fixed; top: 10px; left: 10px">
   <p-button
     icon="material-icons home"
-    class="p-button-outlined"
     routerLink="/"
-    label="Zur App"
+    label="zur App"
   ></p-button>
+  <button
+    pButton
+    *ngIf="canInstall"
+    icon="material-icons install_desktop"
+    label="App installieren"
+    (click)="install()"
+    class="p-button-success second-button"
+  ></button>
 </div>
