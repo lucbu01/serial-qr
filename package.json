@@ -1,6 +1,6 @@
 {
   "name": "serial-qr",
-  "version": "0.2.1-BETA",
+  "version": "0.2.2-BETA",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

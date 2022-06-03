@@ -19,6 +19,7 @@ export class FallbackComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.appService.screenName = 'Welcome';
     document.title = 'SerialQR - Serienbriefe mit QR-Rechnung';
     if (localStorage.getItem('serialqr.lastviewed')) {
       this.projectService.openLastViewed();

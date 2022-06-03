@@ -7,6 +7,7 @@ import { ReplaySubject } from 'rxjs';
 export class AppService {
   promptEventChange: ReplaySubject<any> = new ReplaySubject<any>();
   promptEvent?: any;
+  screenName = 'Welcome';
 
   @HostListener('window:beforeinstallprompt', ['$event'])
   onbeforeinstallprompt(e: any) {

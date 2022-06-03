@@ -32,6 +32,7 @@ export class ProjectComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
+    this.updateTitle();
     this.subscriptions.push(
       this.projectService.onLoaded.subscribe(() => this.updateTitle()),
       this.appService.promptEventChange.subscribe(() => this.updateMenubar()),
@@ -154,14 +155,14 @@ export class ProjectComponent implements OnInit, OnDestroy {
   }
 
   updateTitle() {
+    const view = this.router.url.endsWith('/edit')
+      ? 'Bearbeiten'
+      : this.router.url.endsWith('/preview')
+      ? 'Vorschau'
+      : 'Ansicht';
+    this.appService.screenName = `Projekt ${view}`;
     if (this.projectService.loaded) {
-      document.title = `${this.projectService.activeProject.metadata.name} - ${
-        this.router.url.endsWith('/edit')
-          ? 'Bearbeiten'
-          : this.router.url.endsWith('/preview')
-          ? 'Vorschau'
-          : 'Ansicht'
-      } - SerialQR`;
+      document.title = `${this.projectService.activeProject.metadata.name} - ${view} - SerialQR`;
     }
   }
 

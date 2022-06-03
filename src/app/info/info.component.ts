@@ -37,7 +37,8 @@ export class InfoComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    document.title = `Anleitungen, Hilfe & Infos - SerialQR`;
+    this.appService.screenName = 'Anleitungen, Hilfe & Infos';
+    document.title = `${this.appService.screenName} - SerialQR`;
     this.subscriptions.push(
       this.appService.promptEventChange.subscribe(
         () => (this.canInstall = this.appService.shouldInstall())

@@ -49,7 +49,7 @@ export class ViewComponent implements OnInit {
           }
         })
     );
-    this.generate();
+    setTimeout(() => this.generate());
   }
 
   async generate() {

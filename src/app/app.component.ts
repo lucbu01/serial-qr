@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NavigationEnd, Router } from '@angular/router';
 import { SwUpdate } from '@angular/service-worker';
 import { PrimeNGConfig } from 'primeng/api';
-import { filter } from 'rxjs';
-import { environment } from 'src/environments/environment';
+import { debounceTime, filter } from 'rxjs';
+import { AppService } from './services/app.service';
 
 declare let gtag: Function;
 
@@ -14,6 +14,7 @@ declare let gtag: Function;
 })
 export class AppComponent implements OnInit {
   constructor(
+    private appService: AppService,
     private primeConfig: PrimeNGConfig,
     private swUpdate: SwUpdate,
     private router: Router
@@ -111,17 +112,25 @@ export class AppComponent implements OnInit {
   }
 
   setUpAnalytics() {
-    if (environment.production) {
-      this.router.events
-        .pipe(filter((event) => event instanceof NavigationEnd))
-        .subscribe((event) => {
-          gtag('config', 'G-R44F20TT3N', {
-            page_path: (event as NavigationEnd).urlAfterRedirects.replace(
-              /\/\d+\//,
-              '/'
-            )
-          });
+    this.router.events
+      .pipe(
+        filter((event) => event instanceof NavigationEnd),
+        debounceTime(100)
+      )
+      .subscribe((event: any) => {
+        gtag('config', 'G-R44F20TT3N', {
+          app_name: 'SerialQR',
+          screen_name: this.appService.screenName,
+          page_title: this.appService.screenName,
+          page_location: (event as NavigationEnd).urlAfterRedirects.replace(
+            /\/\d+\//,
+            '/'
+          ),
+          page_path: (event as NavigationEnd).urlAfterRedirects.replace(
+            /\/\d+\//,
+            '/'
+          )
         });
-    }
+      });
   }
 }
